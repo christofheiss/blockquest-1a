@@ -1,0 +1,12 @@
+# Geheimnisse – niemals committen
+private/
+*.bq1akey
+*.bq1a
+tokens*.json
+Token-Karten*.pdf
+node_modules/
+__pycache__/
+.DS_Store
+*Token-Karten*.pdf
+*Codeliste*.csv
+.claude/

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>BlockQuest 1A · Einrichtung</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  body { overflow: auto; }
+  .screen { position: static; min-height: 100vh; }
+  .card { max-width: 720px; }
+  label.f { display: flex; flex-direction: column; gap: 4px; font-weight: 600; }
+  label.f input { font: inherit; padding: .4em .6em; border: 2px solid #1c1a33; border-radius: 8px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+  #codes { columns: 2; font-size: .9rem; padding-left: 1.2em; }
+  .warnbox { background: #fff3cd; border: 2px solid #c99a1e; border-radius: 10px; padding: 10px 14px; }
+</style>
+</head>
+<body>
+<section class="screen">
+  <div class="card">
+    <h1>BlockQuest <span>1A</span></h1>
+    <h2>Einrichtung: Schlüssel und Codes</h2>
+    <div class="warnbox">
+      <b>Nur lokal benutzen</b> (z. B. <code>python3 -m http.server</code>, dann <code>http://localhost:8765/setup.html</code>).
+      Alles bleibt in diesem Browser. Neue Schlüssel ersetzen die alten: Bereits verteilte Karten und alte Spielstände passen danach nicht mehr.
+    </div>
+    <form id="setupForm" autocomplete="off">
+      <div class="grid">
+        <label class="f">Klassen-Kürzel (2 Zeichen) <input id="prefix" value="1A" maxlength="2"></label>
+        <label class="f">Anzahl SuS (dazu kommt die Testkarte …99) <input id="n" type="number" min="1" max="40" value="16"></label>
+        <label class="f">Passwort für den Dongle (mind. 10 Zeichen) <input id="pw1" type="password" minlength="10" required></label>
+        <label class="f">Passwort wiederholen <input id="pw2" type="password" minlength="10" required></label>
+        <label class="f">Adresse des Spiels (für den QR-Code) <input id="gameUrl" value=""></label>
+        <label class="f">Worker-Adresse (optional, später in config.js) <input id="saveUrl" placeholder="https://blockquest-1a-save.….workers.dev"></label>
+        <label class="f">Privates Daten-Repo <input id="dataRepo" value="christofheiss/blockquest-1a-daten"></label>
+      </div>
+      <p><button id="go" class="primary" type="submit">Schlüssel und Codes erzeugen</button></p>
+      <p id="err" class="error" role="alert"></p>
+    </form>
+    <div id="out" hidden>
+      <h2>Fertig: Bitte alles herunterladen</h2>
+      <div class="row">
+        <button id="dlConfig" class="primary">1. config.js (öffentlich → js/config.js im Repo)</button>
+        <button id="dlDongle">2. Dongle (privat)</button>
+        <button id="dlCsv">3. Codeliste (privat)</button>
+        <button id="dlCards">4. Token-Karten PDF (privat)</button>
+      </div>
+      <p class="small">Dongle, Codeliste und Token-Karten gehören in OneDrive unter <code>2_PRIVAT_nicht_hochladen</code>, nie ins Repo. Die Datei <code>config.js</code> ersetzt <code>js/config.js</code>.</p>
+      <h3>Codes</h3><ol id="codes"></ol>
+      <h3>Test-QR-Code (Testkarte)</h3><div id="qrTest"></div>
+    </div>
+  </div>
+</section>
+<script type="module" src="js/setup.js"></script>
+</body>
+</html>

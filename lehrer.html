@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>BlockQuest 1A · Masterview</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/teacher.css">
+<link rel="stylesheet" href="css/extras.css">
+</head>
+<body class="teacher">
+
+<section id="lock" class="screen">
+  <div class="card">
+    <h1>Masterview <span>1A</span></h1>
+    <p class="lead">Nur für die Lehrperson. Lade deinen Dongle und gib das Passwort ein.</p>
+    <form id="unlockForm" autocomplete="off">
+      <label class="filebtn wide">1. Dongle-Datei wählen (…dongle.bq1akey)<input id="dongleFile" type="file" accept=".bq1akey,application/json"></label>
+      <span id="dongleName" class="small">Keine Datei gewählt</span>
+      <label for="pw">2. Passwort</label>
+      <input id="pw" type="password" autocomplete="current-password">
+      <button class="primary" type="submit" id="unlockBtn">Entsperren</button>
+      <p id="lockError" class="error" role="alert"></p>
+    </form>
+    <p class="small">Die Spielstände werden nur in diesem Browserfenster entschlüsselt. Die Masterview lädt nichts hoch.</p>
+  </div>
+</section>
+
+<main id="app" hidden>
+  <header class="top">
+    <h1>Masterview BlockQuest 1A</h1>
+    <div class="row">
+      <button id="cloudBtn" class="primary">Online-Spielstände laden</button>
+      <label class="filebtn">Spielstände laden (.bq1a)<input id="saves" type="file" accept=".bq1a,application/json" multiple></label>
+      <button id="csvBtn">CSV exportieren</button>
+      <button id="tokensBtn">Neue Tokens</button>
+      <button id="dongleBtn">Dongle speichern / Passwort ändern</button>
+      <button id="lockBtn">Sperren</button>
+    </div>
+  </header>
+  <p id="status" class="small">Noch keine Spielstände geladen. Lade die Online-Spielstände oder wähle abgegebene Dateien aus (mehrere gleichzeitig möglich).</p>
+
+  <section id="worldsBox">
+    <h2>Freigabe: Welten, Gebäude und Boss</h2>
+    <p class="small">Stationen im Takt der Lektionen öffnen (Plan im README, z. B. Meter-Werkstatt ab L2, Faktencheck-Redaktion ab L17). Der Boss erwacht für alle, wenn du ihn öffnest (Klammer-Koloss ab L8, Zerr-Orakel ab L17 vor der Prüfung in L19), sonst einzeln ab 3 Abzeichen der Welt. Die Klasse sieht Änderungen innert etwa einer Minute.</p>
+    <div id="worldToggles"></div>
+    <div class="classpush"><span id="classInfo"></span> <button id="classBtn">Klassen-Coins übertragen</button></div>
+    <p id="worldMsg" class="small"></p>
+  </section>
+  <section class="sum" id="classSummary"></section>
+  <section>
+    <h2>Übersicht</h2>
+    <div class="tw"><table id="overview" class="grid"></table></div>
+    <p class="small">Gebäude-Spalten: höchstes Niveau mit mindestens 3 richtigen Aufgaben (★ bis ★★★) und Trefferquote. Farbe: grün ≥ 80 %, gelb 50–79 %, rot &lt; 50 %. Namen sind nur im Dongle gespeichert.</p>
+  </section>
+  <section id="detail" hidden></section>
+
+  <section class="danger">
+    <h2>Alles zurücksetzen</h2>
+    <p class="small">Löscht alle online gespeicherten Spielstände samt Verlauf im Daten-Repo und setzt die Klassen-Coins auf 0. Jedes Kind beginnt beim nächsten Anmelden neu, auch auf Geräten mit einem alten Stand. Codes, Dongle und Namen bleiben gültig.</p>
+    <button id="resetBtn" class="dangerbtn">Alles zurücksetzen …</button>
+  </section>
+
+  <div id="tokensDlg" class="overlay" hidden>
+    <div class="window narrow">
+      <header><h2>Neue Tokens erzeugen</h2><button class="x" id="tokClose">Schliessen</button></header>
+      <p>Erzeugt neue Zugangscodes. Danach müssen die angezeigten Prüfwerte in <code>js/config.js</code> bei <code>tokenHashes</code> ergänzt und auf GitHub hochgeladen werden.</p>
+      <div class="row"><label>IDs (durch Komma getrennt) <input id="tokIds" type="text" value="1A17, 1A18"></label><button class="primary" id="tokMake">Erzeugen</button></div>
+      <div id="tokOut"></div>
+    </div>
+  </div>
+  <div id="cloudDlg" class="overlay" hidden>
+    <div class="window narrow">
+      <header><h2>Online-Spielstände einrichten</h2><button class="x" id="clClose">Schliessen</button></header>
+      <p>Einmalig nötig: Der Lese-Schlüssel für das private Daten-Repo wird nur verschlüsselt im Dongle gespeichert.</p>
+      <label>Daten-Repo <input id="clRepo" type="text" spellcheck="false" autocomplete="off"></label>
+      <label>Lese-Schlüssel (GitHub Token) <input id="clToken" type="password" autocomplete="off"></label>
+      <p id="clError" class="error"></p>
+      <div class="actions"><button class="primary" id="clSave">Prüfen und laden</button></div>
+    </div>
+  </div>
+  <div id="dongleDlg" class="overlay" hidden>
+    <div class="window narrow">
+      <header><h2>Dongle speichern</h2><button class="x" id="dgClose">Schliessen</button></header>
+      <p>Speichert einen neuen Dongle mit den eingetragenen Namen und neuen Tokens. Die alte Dongle-Datei danach löschen.</p>
+      <label>Neues Passwort (mind. 10 Zeichen) <input id="pw1" type="password" autocomplete="new-password"></label>
+      <label>Passwort wiederholen <input id="pw2" type="password" autocomplete="new-password"></label>
+      <p id="dgError" class="error"></p>
+      <div class="actions"><button class="primary" id="dgSave">Dongle herunterladen</button></div>
+    </div>
+  </div>
+  <div id="resetDlg" class="overlay" hidden>
+    <div class="window narrow">
+      <header><h2>Alles zurücksetzen</h2><button class="x" id="rsClose">Abbrechen</button></header>
+      <p><b>Das lässt sich nicht rückgängig machen.</b> Gelöscht werden:</p>
+      <ul>
+        <li>alle Spielstände im Daten-Repo, auch der Verlauf (die alten Commits)</li>
+        <li>die Coins der Klasse (Klassen-Turm wieder auf Stufe 0)</li>
+        <li>die Spielstände auf den Geräten der Klasse: Sie werden beim nächsten Anmelden verworfen.</li>
+      </ul>
+      <p>Bleiben erhalten: Codes, Dongle, Namen und Spielstand-Dateien, die abgegeben oder heruntergeladen wurden.</p>
+      <p><button id="rsCsv">Vorher CSV exportieren</button> <span class="small">(Lade zuerst die Online-Spielstände, sonst ist die CSV leer.)</span></p>
+      <label class="check"><input id="rsKeep" type="checkbox" checked> Freigabe behalten (Welten, Gebäude, Boss)</label>
+      <label>Zum Bestätigen <b>LEER</b> eintippen <input id="rsConfirm" type="text" autocomplete="off" spellcheck="false"></label>
+      <p id="rsError" class="error"></p>
+      <div class="actions"><button id="rsGo" class="dangerbtn" disabled>Endgültig zurücksetzen</button></div>
+    </div>
+  </div>
+</main>
+
+<script type="module" src="js/teacher.js"></script>
+</body>
+</html>

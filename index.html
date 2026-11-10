@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BlockQuest 1A</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/extras.css">
+</head>
+<body>
+
+<!-- Anmeldung -->
+<section id="login" class="screen">
+  <div class="card">
+    <h1>BlockQuest <span>1A</span></h1>
+    <p class="lead">Terme umformen und Daten &amp; Diagramme · mathbuch 1, LU 10 und LU 11</p>
+    <form id="loginForm" autocomplete="off">
+      <label for="tokenInput">Dein persönlicher Code (steht auf deiner Karte unter dem QR-Code)</label>
+      <input id="tokenInput" type="text" placeholder="1A07-XXXX-XXXX-XXXX" spellcheck="false" autocapitalize="characters">
+      <div class="row">
+        <button id="loginBtn" type="submit" class="primary">Anmelden</button>
+        <button id="scanBtn" type="button">QR-Code mit Kamera scannen</button>
+      </div>
+      <p id="loginError" class="error" role="alert"></p>
+    </form>
+    <div id="qrWrap" hidden><video id="qrVideo" playsinline muted></video><button id="qrCancel" type="button">Abbrechen</button></div>
+    <p class="small">Du spielst nur mit deiner ID, nicht mit deinem Namen. Dein Spielstand wird verschlüsselt gespeichert.</p>
+    <p class="small"><a href="app.html">Lieber als Lern-App ohne 3D-Welt?</a> Coins und Level gelten in beiden.</p>
+  </div>
+</section>
+
+<!-- Weltauswahl -->
+<section id="worlds" class="screen" hidden>
+  <div class="card wide">
+    <h2>Wähle deine Welt</h2>
+    <div id="worldCards"></div>
+    <p id="worldsNote" class="small"></p>
+    <button id="worldsBack" hidden>Zurück ins Spiel</button>
+  </div>
+</section>
+
+<!-- Willkommen (erstes Mal auf diesem Gerät) -->
+<section id="welcome" class="screen" hidden>
+  <div class="card">
+    <h2>Willkommen, <span id="welcomeId"></span>!</h2>
+    <p>Auf diesem Gerät gibt es noch keinen Spielstand für dich.</p>
+    <div class="row">
+      <button id="newGameBtn" class="primary">Neues Spiel starten</button>
+      <label class="filebtn">Spielstand-Datei laden<input id="loadFile" type="file" accept=".bq1a,application/json"></label>
+    </div>
+    <p id="welcomeError" class="error"></p>
+    <p class="small">Hast du schon auf einem anderen Gerät gespielt? Dann lade deine Datei «BlockQuest1A_…bq1a».</p>
+  </div>
+</section>
+
+<!-- Spiel -->
+<section id="game" hidden>
+  <canvas id="view"></canvas>
+  <div id="labels"></div>
+  <div id="crosshair"></div>
+
+  <div id="hud">
+    <div class="who"><span id="hudId"></span><span id="hudLevel"></span></div>
+    <div class="coins"><i class="coin"></i><b id="hudCoins">0</b> Coins <span class="hbadge" title="Abzeichen">🏅 <b id="hudBadges"></b></span></div>
+    <div class="bar"><div id="hudBar"></div></div>
+    <div id="hudNext" class="small"></div>
+  </div>
+  <div id="menu">
+    <button id="worldsBtn" title="Welt wechseln">Welten</button>
+    <button id="mapBtn" title="Karte (M)">Karte</button>
+    <button id="saveBtn" title="Spielstand als Datei speichern">Speichern</button>
+    <button id="fileBtn" title="Spielstand als Datei herunterladen, z. B. für ein anderes Gerät" hidden>Als Datei</button>
+    <button id="helpBtn" title="Hilfe (H)">Hilfe</button>
+    <button id="logoutBtn">Abmelden</button>
+  </div>
+  <div id="prompt" hidden></div>
+  <div id="touch" hidden>
+    <div id="stick"><div id="knob"></div></div>
+    <div class="tbtns"><button id="useBtn" type="button">Betreten</button><button id="viewBtn" type="button">Kamera</button><button id="jumpBtn" type="button">Springen</button></div>
+  </div>
+  <div id="toast" hidden></div>
+
+  <!-- Aufgaben -->
+  <div id="panel" class="overlay" hidden>
+    <div class="window">
+      <header><h2 id="pTitle"></h2><button id="closeBtn" class="x" title="Zurück in die Welt (Esc)">Zurück in die Welt</button></header>
+      <p id="pMeta" class="meta"></p>
+      <div id="pStages" class="stages"></div>
+      <div id="pQuestion" class="question"></div>
+      <div id="pAnswer" class="answer"></div>
+      <div id="pHint" class="hint" hidden></div>
+      <div id="pFeedback"></div>
+      <div class="actions">
+        <button id="hintBtn">Lösungshilfe</button>
+        <button id="checkBtn" class="primary">Prüfen (Enter)</button>
+        <button id="nextBtn" class="primary" hidden>Nächste Aufgabe (Enter)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Level-Turm -->
+  <div id="levelPanel" class="overlay" hidden>
+    <div class="window narrow">
+      <header><h2>Level-Turm</h2><button id="lvClose" class="x">Zurück in die Welt</button></header>
+      <div id="lvBody"></div>
+      <div class="actions"><button id="lvUp" class="primary">Aufsteigen</button></div>
+    </div>
+  </div>
+
+  <!-- Info (Boss schläft, Klassen-Turm, Parcours) -->
+  <div id="infoPanel" class="overlay" hidden>
+    <div class="window narrow">
+      <header><h2 id="infoTitle"></h2><button id="infoClose" class="x">Zurück in die Welt</button></header>
+      <div id="infoBody"></div>
+    </div>
+  </div>
+
+  <!-- Boss-Kampf: Fenster rechts, der Boss bleibt links im Bild sichtbar -->
+  <div id="bossPanel" hidden><div id="bossBox" class="window"></div></div>
+
+  <!-- Karte -->
+  <div id="map" class="overlay" hidden>
+    <div class="window">
+      <header><h2>Karte</h2><button id="mapClose" class="x">Schliessen</button></header>
+      <p class="small">Klicke auf eine Station in der Karte oder in der Liste, um direkt vor die Tür zu reisen. L = Level-Turm, B = Boss-Arena, K = Klassen-Turm, P = Parcours. Der gelbe Pfeil bist du.</p>
+      <div class="mapwrap"><canvas id="mapCanvas" width="504" height="504"></canvas><ol id="mapLegend"></ol></div>
+    </div>
+  </div>
+
+  <!-- Hilfe -->
+  <div id="help" class="overlay" hidden>
+    <div class="window narrow">
+      <header><h2>So spielst du</h2><button id="helpClose" class="x">Los geht's</button></header>
+      <table class="keys">
+        <tr><td><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> oder <kbd>↑</kbd><kbd>↓</kbd></td><td>gehen</td></tr>
+        <tr><td><kbd>←</kbd><kbd>→</kbd></td><td>drehen</td></tr>
+        <tr><td>Touchpad / Maus</td><td>Klicke ins Bild, dann umschauen. <kbd>Esc</kbd> gibt die Maus wieder frei. Ohne Klick: mit gedrückter Taste ziehen.</td></tr>
+        <tr><td><kbd>Leertaste</kbd> · <kbd>Shift</kbd></td><td>springen · rennen</td></tr>
+        <tr><td><kbd>E</kbd></td><td>Gebäude betreten, wenn du drin stehst</td></tr>
+        <tr><td><kbd>V</kbd></td><td>Kamera: hinter deiner Figur oder aus deinen Augen</td></tr>
+        <tr><td><kbd>M</kbd> · <kbd>H</kbd></td><td>Karte · Hilfe</td></tr>
+        <tr><td>Tablet</td><td>Links der Joystick zum Gehen (ganz aussen: rennen), rechts Springen. Wische im Bild, um dich umzuschauen.</td></tr>
+      </table>
+      <p>In jedem Gebäude gibt es Aufgaben auf drei Niveaus: <b>★ Grundanspruch</b> (5 Coins), <b>★★ Standard</b> (10 Coins) und <b>★★★ Erweiterung</b> (20 Coins). Die Erweiterung öffnet sich, wenn du 3 Standard-Aufgaben richtig gelöst hast.</p>
+      <p>Mit einer Lösungshilfe oder im zweiten Versuch gibt es die halbe Belohnung. Unter dem empfohlenen Niveau gibt es weniger Coins. Nach einem richtig vereinfachten Term holst du mit dem <b>Kontroll-Bonus</b> (Zahlen einsetzen) 2 Coins extra.</p>
+      <p><b>Terme eintippen:</b> 3a + 2b, a^2 oder a2 für a², 4(a + b) oder 4*(a+b). Wenn «vereinfache» steht, braucht es die kürzeste Form ohne Klammern.</p>
+      <p>Im <b>Level-Turm</b> tauschst du Coins gegen ein höheres Level oder kaufst im Shop etwas fürs Aussehen. Dort siehst du auch deine <b>Abzeichen</b>: eines pro Lernziel.</p>
+      <p>In der <b>Boss-Arena</b> (Karte: B) wartet ein Boss. Du besiegst ihn mit richtigen Antworten. Er erwacht, wenn deine Lehrperson die Arena öffnet oder wenn du 3 Abzeichen der Welt hast. Am <b>Klassen-Turm</b> (K) baut die ganze Klasse mit ihren Coins. Beim <b>Parcours</b> (P) springst du bis zur Fahne und gewinnst einen besonderen Hut.</p>
+      <p><b>Wichtig:</b> Dein Spiel wird auf diesem Gerät gespeichert. <span id="helpSave">Klicke am Ende der Lektion auf <b>Speichern</b> und gib die Datei ab.</span></p>
+    </div>
+  </div>
+</section>
+
+<script type="module" src="js/game.js"></script>
+</body>
+</html>

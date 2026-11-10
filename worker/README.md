@@ -1,0 +1,67 @@
+# Online-Speichern einrichten
+
+Beim Klick auf «Speichern» schickt das Spiel den verschlüsselten Spielstand an einen Cloudflare Worker. Der Worker prüft den Code und legt die Datei im privaten Repo `christofheiss/blockquest-1a-daten` unter `saves/<ID>.bq1a` ab. Ohne `saveUrl` in `js/config.js` oder bei einem Fehler lädt das Spiel die Datei wie bisher herunter.
+
+Vor dem Einsatz: Datenschutz mit der Schule klären. Cloudflare sieht IP-Adresse, ID und kurz den Code, aber nie den Inhalt der Spielstände.
+
+## 1. Zwei GitHub-Schlüssel erstellen
+
+Auf github.com: Settings → Developer settings → Personal access tokens → **Fine-grained tokens** → Generate new token. Beide Male: Repository access → *Only select repositories* → `blockquest-1a-daten`; Ablaufdatum nach dem Praktikum.
+
+| Schlüssel | Permissions → Contents | Kommt in |
+|---|---|---|
+| Schreiben | Read and write | Cloudflare (Schritt 2) |
+| Lesen | Read-only | Masterview (Schritt 4) |
+
+Die Schlüssel nie in Dateien im Repo, in `js/config.js` oder in einen Chat kopieren.
+
+## 2. Worker bei Cloudflare anlegen
+
+1. Auf dash.cloudflare.com ein Gratis-Konto erstellen und anmelden.
+2. Compute (Workers) → Workers & Pages → Create → **Start with Hello World** → Name `blockquest-1a-save` → Deploy.
+3. **Edit code**: alles ersetzen durch den Inhalt von `worker/worker.js` → Deploy.
+4. Settings → Variables and Secrets → Add:
+
+| Typ | Name | Wert |
+|---|---|---|
+| Text | `DATA_REPO` | `christofheiss/blockquest-1a-daten` |
+| Text | `CONFIG_URL` | `https://christofheiss.github.io/blockquest-1a/js/config.js` |
+| Text | `ALLOWED_ORIGINS` | `https://christofheiss.github.io` |
+| Secret | `GITHUB_TOKEN` | der Schreib-Schlüssel |
+
+5. Die Adresse des Workers notieren, z. B. `https://blockquest-1a-save.NAME.workers.dev`.
+
+## 3. Spiel verbinden
+
+In `js/config.js` bei `saveUrl` die Adresse des Workers eintragen und auf GitHub hochladen. Die Adresse ist nicht geheim. Prüfwerte und Schlüssel in der Datei nicht verändern.
+
+## 4. Masterview verbinden
+
+1. `lehrer.html` öffnen und mit dem Dongle entsperren.
+2. **Online-Spielstände laden** → den Lese-Schlüssel eingeben.
+3. **Dongle speichern / Passwort ändern**, damit der Schlüssel verschlüsselt im Dongle liegt. Den alten Dongle löschen.
+
+## 5. Testen
+
+Mit der Karte 1A99 spielen und «Speichern» klicken. Es muss «Spielstand online gespeichert» erscheinen, und im Daten-Repo liegt `saves/1A99.bq1a`. In der Masterview erscheint 1A99 nach «Online-Spielstände laden».
+
+## Gut zu wissen
+
+- Jeder Klick auf «Speichern» ergibt einen Commit im Daten-Repo. Frühere Stände bleiben in der Git-Historie.
+- Klicken viele gleichzeitig, wiederholt der Worker den Schreibversuch. Klappt es trotzdem nicht, bekommt die Schülerin oder der Schüler die Datei als Download.
+- Läuft der Schreib-Schlüssel ab, schlägt das Hochladen fehl und das Spiel lädt nur noch Dateien herunter. Dann in Cloudflare einen neuen Schlüssel eintragen.
+- Neue Codes in `js/config.js` kennt der Worker automatisch, nach spätestens etwa 15 Minuten.
+
+## Worker-Code aktualisieren
+
+Bei Änderungen an `worker/worker.js`: bei Cloudflare den Worker öffnen → **Edit code** → alles durch den neuen Code ersetzen → **Deploy**. Die Variablen und das Secret bleiben erhalten. Die Freischaltung der Welten braucht keine zusätzliche Einstellung.
+
+Der Worker speichert in `worlds.json` die Welten (`te`, `dd`), die Schalter pro Station (`glieder`, `klammer`, `distri`, `flaeche`, `wuerfel`, `pruef`, `mittel`, `klassen`, `linsen`, `diagramm`, `screen`, `fakten`), den Boss pro Welt (`boss_te`, `boss_dd`), die Coin-Summe der Klasse (`klasse`) und den Zeitpunkt des letzten Resets (`reset`). Kommt eine neue Station dazu, muss sie in `SWITCH_IDS` in `worker/worker.js` ergänzt und der Worker neu eingesetzt werden.
+
+## Alles zurücksetzen
+
+In der Masterview unten: **Alles zurücksetzen …** → «LEER» eintippen. Der Worker ersetzt den Branch im Daten-Repo durch einen neuen Commit ohne Vorgänger, der nur `worlds.json` enthält (mit `reset` = Zeitpunkt und `klasse` = 0). Die Spielstände sind damit auch aus dem Verlauf des Branches verschwunden. GitHub kann nicht mehr erreichbare Commits intern noch eine Weile aufbewahren. Wer absolut sicher sein will, löscht das Repo und legt es neu an (siehe Schritt 1).
+
+Danach nimmt der Worker keine Spielstände mehr an, die vor dem Reset begonnen wurden (Antwort 409). Spiel und App verwerfen solche Stände auch selbst: beim Anmelden, beim Laden einer Datei und in offenen Fenstern innert etwa einer Minute.
+
+Der Schreib-Schlüssel braucht dafür keine zusätzlichen Rechte (Contents: Read and write genügt).
