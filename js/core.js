@@ -54,7 +54,7 @@ export async function uploadSave(S, token, sKey) {
   const file = await K.sealSave(S, sKey, CONFIG.teacherPublicKey);
   const res = await fetch(CONFIG.saveUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token, file }) });
   if (res.status === 409) { const e = new Error('Zurückgesetzt'); e.code = 'reset'; throw e; }
-  if (!res.ok) throw new Error('HTTP ' + res.status);
+  if (!res.ok) { let why = ''; try { why = (await res.json()).error || ''; } catch { } throw new Error(`HTTP ${res.status}${why ? ' ' + why : ''}`); }
 }
 
 // ---------- Reset durch die Lehrperson ----------

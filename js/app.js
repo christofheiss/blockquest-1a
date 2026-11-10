@@ -70,7 +70,7 @@ async function saveOnline() {
     if (e.code === 'reset') return resetByTeacher();
     console.warn('Online-Speichern nicht möglich', e);
     await downloadSave();
-    toast('Online-Speichern hat nicht geklappt. Dein Lernstand wurde als Datei heruntergeladen: Gib sie bitte ab.', 8000);
+    toast(`Online-Speichern hat nicht geklappt (${e.message || 'Fehler'}). Dein Lernstand wurde als Datei heruntergeladen: Gib sie bitte ab.`, 10000);
   } finally { btn.disabled = false; btn.textContent = 'Speichern'; }
 }
 
