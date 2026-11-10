@@ -88,7 +88,7 @@ Nach jeder Lektion: «Online-Spielstände laden» → «Klassen-Coins übertrage
 2. Passwort wählen, erzeugen, alle vier Dateien herunterladen. `config.js` ersetzt `js/config.js`. Dongle, Codeliste und Token-Karten nach OneDrive `2_PRIVAT_nicht_hochladen`.
 3. GitHub-Repos und Cloudflare Worker: siehe `worker/README.md` und die Vorlage `Prompt_Neues_Lernspiel_Speicherung_Verwaltung.md`, Teil B.
 
-**Achtung:** Die aktuelle `js/config.js` ist ein Test-Set aus der Entwicklung. Vor dem Einsatz unbedingt mit `setup.html` ersetzen.
+Die aktuelle `js/config.js` (erzeugt am 10.11.2026) passt zum Dongle in OneDrive. **Nicht überschreiben**, sonst funktionieren die verteilten Karten nicht mehr.
 
 ## Technik
 

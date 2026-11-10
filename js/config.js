@@ -1,31 +1,31 @@
 // BlockQuest 1A – öffentliche Einstellungen (darf auf GitHub liegen)
 // Enthält KEINE Geheimnisse: nur den öffentlichen Schlüssel der Lehrperson und Prüfwerte (Hashes) der gültigen Codes.
-// ACHTUNG: TEST-SET aus der Entwicklung (Dongle nicht aufbewahrt). Vor dem Einsatz mit setup.html ersetzen.
+// Erzeugt mit setup.html am 10.11.2026, 21:01:38.
 export const CONFIG = {
   className: '1A',
   // Online-Speichern: Adresse des Cloudflare Workers (leer = nur Datei-Download) und privates Daten-Repo
   saveUrl: '',
   dataRepo: 'christofheiss/blockquest-1a-daten',
-  teacherPublicKey: {"kty":"RSA","n":"omFMwcifDkcOcdM-jcwldvkl8wgWVrIimJXKMK-oJ1nzTJ-OtIkAROB2nTl2e2rIfuD-F53H73KPux7QWrn0V19uT6U7ultWpKdqTc0whSdCgELrqyGIC3tBzLNQ39OCX1rBGFhQzMeQWHAO7KjNU-uJf6O8k0JSXE5UR8mq9_-MLPkUUCtuqeFLCFdLDUoBGA3L4y1Do6kiR1AX46xb_HqiSNttBLssQtistQ94V2D6WfbGoxCGYqF8epIz9XOapB7uxu24a0MuaPsnqwpaKPcDobJl2_2G4U0k6UwP139edn01u9o2BmejAYisxjTrABB_Ai9IEKCQLVsAkKGpcQ","e":"AQAB","alg":"RSA-OAEP-256","ext":true,"key_ops":["encrypt"]},
+  teacherPublicKey: {"kty":"RSA","n":"z0OlGveCS43tl2Hzap54KF80Gwt75ykUud3oPEpK63NSkx3EWWYfjI7MkcUvrAT6YcNRP9dXBGQz_hqKbM-Jlxst2m8f1R9JCu4RtI8hSEa1K_UP3j5d5qN5qsN5kbg5jQCZNTDVoS4gquONbIyg2Rle01XnvBM-0OwbrofA5soOLseXeNoBRBuGCvDsdw32FfY20Dm1KjCnpFL3UfCTynvebqpxl229cWgPUaHJsACaPh6mpMWTXreJMjUGCeWTh_rMpXva9yyqahvcASOO0kXg1vvrSFwI858e3SLLanMwXc5KZO_CtqIY17hTAHKSW3bZtrM4CGtcbsxPOBvrqw","e":"AQAB","alg":"RSA-OAEP-256","ext":true,"key_ops":["encrypt"]},
   // Freigabe, solange der Worker nichts anderes meldet (te = Terme-Insel LU 10, dd = Daten-Stadt LU 11)
   worlds: { te: true, dd: false },
   tokenHashes: [
-    '86a452884a8b41a7f39d9bbaf022acc2e0378fcd681c6f863dee0fffcbacc4d4', // 1A01
-    'cbcd0a7b0a6e4f36387751e20a7b1524039d09fab45c15c08bbe3eb7d621ee83', // 1A02
-    '772bf08c84682fa7a0a4a3d389319d5a3dd0413b5c7172b0865be1cc8d1091cc', // 1A03
-    'f720cb3765c4e8d68f7fe7218cde83e06e49dcaec34459e766ef2bcdff5ee01a', // 1A04
-    'd3049738b8c4d81151f9b676c68a88e7fb03cf3e6e889811671a16653db53da6', // 1A05
-    'a411e6abcd4240d431994bea3083174db009cb32e80a00a2c2c7fa5b5a63a55f', // 1A06
-    'e2b473d5c3408f813f382ccc3278833ef0272ec4dd391fa33fd2e520dd809c97', // 1A07
-    '1bd424d0de4c3027c59f63668553242305f394c99fbcda79aaea92e56321d9d5', // 1A08
-    'd288f80060459a67b7df860dea94e004d9a03033c864a636e36cd2c04a79ae5c', // 1A09
-    '971840a0015517e207dc2bcc39fbe1435b8617ceeeed2520303d78f052221a13', // 1A10
-    '365f8627ec40e49a77e1ae16f6e50fd32ac45e1f379ddea69ef8b5b5cd94609f', // 1A11
-    '46faee57d31577561e628f5e093e184fcaafb17a03f371d3939385085f079fba', // 1A12
-    'd2e0547598c95cb9c0b7f922cf530b61316e6dc3efd518f8eae66b7d189ec860', // 1A13
-    'cc74a07d37539c2baad154fd7bec82cc712620bacb4e187151ddef70edf119e7', // 1A14
-    'edcb508fc0a461c9c5fda41faeceb16d1713c3f474ff1b9e3922da9df97a16dc', // 1A15
-    '42d1b4f69ef24494006ef254a19097912ebf916760ac1f2e14ad67f28405c731', // 1A16
-    '5b4380c189f143f96940d6514fbe314fdb6e7c1c5442d645a073b4c030beb957', // 1A99 (Test Lehrperson)
+    '2b0105c189c8c6d58bee7e33ad15cae7fe0c83494950a6edc4c536150e92724c', // 1A01
+    '8b893b8f704e9cc268dcc69c5240eea1ea4f4a875f6981ab5d77823cc4e89eed', // 1A02
+    '7c8d6d4f12ef9375a38f630a2b3796a0a2b01789e99cf5b823beeeea28e5e56a', // 1A03
+    'bc97c84e5d2c930fdc32029eef75f4f64a1efac4007577a42e78aaea7cb7eb45', // 1A04
+    '72f0730446274a3a33e50cf471062bf9d244c25068a14e43f2c3e29df2edabc6', // 1A05
+    'b865479700ef0c1f988ab4244eda741afb100e55b905ca7a00a13e0699248a14', // 1A06
+    '113636ad6ff9e342a954d18466eb6e4f1fb3a6d177cf9ce5e23f62bae8e741f3', // 1A07
+    '785d0ea3937289368f237cf67528f85d2923ce539dd028258e67f6528a5d4afe', // 1A08
+    'de74f80f7f687b5b54d023d1881d3a68488c0b02f3043217edd78edc1df792de', // 1A09
+    '74fc3c9941444fc3e5c7f183be367a042a47418ce6b4c737d510741e45b1c3a9', // 1A10
+    'd06f6ee7813c8504e826b11bcbefa128704cb10a6d207236eb1d25684fd87acb', // 1A11
+    'c73e0543401132876ebaf9923270a96ec82466a1e1ad5ebf63797879c0e7c6a5', // 1A12
+    'd253d3d78cd152f25e9572d4afd426e71808189d16490b25270196da5ea835a6', // 1A13
+    '2e6da3308534035caf44607b1267e563ed9a6c25346e8d9e1cc1d084070b0c19', // 1A14
+    '8c828085e967e4304589b45f5b3068b1c20e9d243f4ccc5b023d113fad29c077', // 1A15
+    '4afbdaf54655d336c00af313d199e9a9f48884e912eea95712030eeba9494bca', // 1A16
+    '1d17b5b11484d914ac91160a7fdbf76405200017568a8db03f66206fd9b05bc9', // 1A99 (Test Lehrperson)
   ]
 };

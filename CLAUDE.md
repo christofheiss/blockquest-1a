@@ -51,7 +51,7 @@ python3 -m http.server 8765      # im Ordner blockquest-1a; dann /index.html, /a
 - Getestet (November 2026): Login, Aufgaben inkl. Term-Rückmeldung und Kontroll-Bonus, Diagramme, Parcours (Sprünge per Physik-Simulation erreichbar, Ziel-Erkennung), Shop, Boss-Kampf, Daten-Stadt, App, Masterview mit Test-Dongle, setup.html, QR-Code (mit BarcodeDetector gelesen) und PDF.
 
 ## Schlüssel und Codes
-- Die aktuelle `js/config.js` ist ein **Test-Set** ohne aufbewahrten Dongle. Vor dem Einsatz mit `setup.html` neu erzeugen und ersetzen.
+- Die aktuelle `js/config.js` (setup.html, 10.11.2026) ist die **produktive** Konfiguration und passt zu Christofs Dongle in OneDrive (`2_PRIVAT_nicht_hochladen`). **Nicht überschreiben.** Für Tests ein eigenes Set mit `makeSetup` im Browser erzeugen und die Datei danach zurücksetzen (`git checkout js/config.js`).
 - Dongle, Codeliste, Token-Karten gehören in OneDrive `2_PRIVAT_nicht_hochladen`, nie ins Repo (`.gitignore`: `private/`, `*.bq1akey`, `*.bq1a`, Token-PDF).
 - Node ist auf Christofs Mac nicht installiert: alles läuft im Browser.
 
