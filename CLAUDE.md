@@ -56,6 +56,7 @@ python3 -m http.server 8765      # im Ordner blockquest-1a; dann /index.html, /a
 - Node ist auf Christofs Mac nicht installiert: alles läuft im Browser.
 
 ## Offene Punkte
-- GitHub-Repos `blockquest-1a` (öffentlich, Pages) und `blockquest-1a-daten` (privat) anlegen, Worker `blockquest-1a-save` einrichten (Vorlage Teil B). Vor dem Pushen Christof fragen.
+- Repos sind angelegt: `christofheiss/blockquest-1a` (öffentlich, Pages: https://christofheiss.github.io/blockquest-1a/) und `christofheiss/blockquest-1a-daten` (privat, leer). Vor dem Pushen Christof fragen.
+- Noch offen: GitHub-Tokens, Cloudflare Worker `blockquest-1a-save` (Vorlage Teil B), danach `saveUrl` in `js/config.js` eintragen.
 - Datenschutz mit der Schule klären.
 - Optional: Sound, gemeinsamer Klassen-Boss.
