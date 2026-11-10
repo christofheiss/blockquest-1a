@@ -57,6 +57,6 @@ python3 -m http.server 8765      # im Ordner blockquest-1a; dann /index.html, /a
 
 ## Offene Punkte
 - Repos sind angelegt: `christofheiss/blockquest-1a` (öffentlich, Pages: https://christofheiss.github.io/blockquest-1a/) und `christofheiss/blockquest-1a-daten` (privat, leer). Vor dem Pushen Christof fragen.
-- Noch offen: GitHub-Tokens, Cloudflare Worker `blockquest-1a-save` (Vorlage Teil B), danach `saveUrl` in `js/config.js` eintragen.
+- Worker `blockquest-1a-save` läuft: https://blockquest-1a-save.c-heiss.workers.dev (in `saveUrl`). Offen: Speichertest mit 1A99, Lese-Token in der Masterview, dann «Alles zurücksetzen».
 - Datenschutz mit der Schule klären.
 - Optional: Sound, gemeinsamer Klassen-Boss.
