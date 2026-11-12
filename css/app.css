@@ -1,7 +1,7 @@
 :root {
   color-scheme: light;
   --bg: #f4f6f3; --surface: #fff; --ink: #1c2522; --muted: #5a6661; --line: #d7ddd8;
-  --accent: #17594a; --accent-hover: #0f4438; --accent-soft: #e2f0ec;
+  --accent: #5b2bd1; --accent-hover: #4a1fb3; --accent-soft: #efe9ff;
   --gold: #e0ac1f; --gold-soft: #fff5d6; --gold-ink: #8a6500;
   --lu11: #a5432f; --lu10: #8a6d1f;
   --good: #24713a; --good-soft: #e5f3e7; --bad: #b3261e; --warn-soft: #fff3d0;
@@ -171,3 +171,8 @@ fieldset.mc input { margin-top: .3em; flex: none; }
 .topic.boss .tname::before { content: "⚔ "; }
 .bosspanel { align-items: stretch; }
 .bosspanel .boss-ui h2 { font-size: 1.3rem; }
+
+/* Spieldesign: Neon-Verlauf beim Anmelden */
+.gate { background: linear-gradient(160deg, #3b2bd1, #8a2bd1 55%, #ff4fa3); }
+#main > h1 { margin-top: 4px; }
+#main .gl { margin-top: 12px; }

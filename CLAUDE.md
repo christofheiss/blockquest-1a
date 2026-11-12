@@ -21,6 +21,7 @@ Sprache der Oberfläche: **Deutsch (Schweiz, kein ß)**, Dezimalpunkt wie im mat
 | `js/tasks.js` | `BUILDINGS`: 12 Stationen mit `gen(stage)`. Aufgabe `{q, kind: 'num'|'mc'|'term'|'multi', …}`. `parseTerm`/`sameTerm` (Terme durch Einsetzen vergleichen), `checkPart` (bei `form: 'sum'` vereinfachte Form verlangt, Grund in `part._note`), Polynom-Helfer `P`, Diagramme `barImg`/`pieImg`/`lineImg`, Figuren `figSvg`, `WORLDS`, `STAGES` |
 | `js/core.js` | Gemeinsame Regeln für Spiel und App: Level, Spielstand (`migrate`: badges, items, equip {pet, top, hat, shirt, pants}, parcours, probes, boss), `signIn`, Speichern, Freigabe, Empfehlung, `gradeTask` (liefert `note`), Kontroll-Bonus (`probe`/`probeAt`), `BADGES`, `SHOP`, `finishParcours`, `classInfo`. Regeln nur hier ändern |
 | `js/game.js` | Spiel: Welt, Beschriftungen, HUD, Panels, Parcours-Erkennung, Kamera (V), Karte, Eingaben inkl. Touch. Auf localhost: `window.__bq` (player, S, teleport) für Tests |
+| `js/goals.js`, `css/goals.css` | Lernziele (LZ1–LZ8 als «Ich kann …») und Kriterienraster der Prüfungen J (L8) und K (L19) pro Thema, Ampel aus Abzeichen/Statistik; Route `#/ziele/<te|dd>` in der App, Overlay `#goalsPanel` im Spiel (Taste Z) |
 | `js/boss.js` | `BOSSES` (te, dd), `Fight`, `mountFight`, `bossSvg` |
 | `app.html`, `js/app.js`, `css/app.css` | Lern-App ohne 3D-Welt |
 | `js/crypto.js` | Token, Hashes, PBKDF2, `sealSave`, `openSaveAs…`, Dongle, RSA |

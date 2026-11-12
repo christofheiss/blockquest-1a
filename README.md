@@ -32,6 +32,10 @@ Lernziele: LZ1 gleichartige Glieder, LZ2 Werte einsetzen, LZ3 Distributivgesetz,
 
 **Terme eintippen:** `3a + 2b`, `a^2` oder `a2` für a², `4(a + b)`. Das Spiel prüft durch Einsetzen, ob der Term gleichwertig ist. Steht «vereinfache» oder «Summenterm», braucht es zusätzlich die kürzeste Form ohne Klammern. Sonst meldet das Spiel «gleichwertig, aber noch nicht vereinfacht».
 
+## Lernziele und Kriterienraster
+
+In der Lern-App unter **Ziele** und im Spiel mit dem Knopf **Ziele** (Taste <kbd>Z</kbd>) gibt es pro Thema (J und K) eine eigene Seite: die vier Lernziele als «Ich kann …»-Sätze mit Beispiel, das Kriterienraster der Prüfung (Aufgaben, Kriterium, Punkte) und zu jedem Punkt die passenden Stationen zum Üben. Eine Ampel zeigt den eigenen Stand: grün = Abzeichen geschafft, gelb = schon geübt, rot = noch nicht geübt. Quelle: Unterrichtsauftrag Mt1A (Kompetenzen, Kriterienraster). Inhalte in `js/goals.js`.
+
 ## Binnendifferenzierung
 
 Jede Station hat drei Niveaus: ★ Grundanspruch (5 Coins), ★★ Standard (10 Coins), ★★★ Erweiterung (20 Coins). Die Erweiterung öffnet sich nach 3 richtig gelösten Standard-Aufgaben. Das Spiel empfiehlt ein Niveau: nach 3 richtigen Aufgaben eines höher, nach 2 falschen eines tiefer. Lösungshilfen und zweite Versuche geben die halbe Belohnung. Die Aufgaben werden zufällig erzeugt, es gibt also beliebig viele.

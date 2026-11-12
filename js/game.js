@@ -4,6 +4,7 @@ import { buildWorld, buildingAt, setFamePillar, setClassTower, courseGoal, cours
 import { golem, oracle, pet, avatar, defaultShirt } from './models.js';
 import { B } from './engine.js';
 import { BOSSES, mountFight } from './boss.js';
+import { goalsHtml, GOALS } from './goals.js';
 import { BUILDINGS, STAGES, WORLDS, THEMA } from './tasks.js';
 import { CONFIG } from './config.js';
 import * as K from './crypto.js';
@@ -510,16 +511,28 @@ function mapClick(ev) {
     if (Math.abs(x - m.cx - 0.5) < 5 && Math.abs(z - m.cz - 0.5) < 5) return teleport(id);
   }
 }
+// ---------- Lernziele und Kriterienraster ----------
+function showGoals(w = S.world) {
+  paused = true; document.exitPointerLock?.();
+  $('#goalsBody').innerHTML = goalsHtml(S, GOALS[w] ? w : 'te', (x) => `data-gl="${x}" role="button" tabindex="0"`);
+  $('#goalsPanel').hidden = false;
+  $('#goalsBody').querySelectorAll('[data-gl]').forEach(el => el.onclick = () => {
+    const x = el.dataset.gl;
+    if (x.startsWith('#tab:')) return showGoals(x.slice(5));
+    if (!worldData.meta[x]) { toast(`«${BYID[x].name}» liegt in der anderen Welt. Wechsle über «Welten».`, 5000); return; }
+    $('#goalsPanel').hidden = true; teleport(x);
+  });
+}
 function showHelp() { paused = true; document.exitPointerLock?.(); $('#help').hidden = false; }
 
 // ---------- Eingaben ----------
-function overlayOpen() { return !$('#panel').hidden || !$('#levelPanel').hidden || !$('#map').hidden || !$('#help').hidden || !$('#infoPanel').hidden || !$('#bossPanel').hidden; }
+function overlayOpen() { return !$('#goalsPanel').hidden || !$('#panel').hidden || !$('#levelPanel').hidden || !$('#map').hidden || !$('#help').hidden || !$('#infoPanel').hidden || !$('#bossPanel').hidden; }
 function setupInput() {
   window.addEventListener('keydown', (e) => {
     if (!$('#login').hidden || !$('#welcome').hidden || !$('#worlds').hidden) return;
     const typing = e.target.tagName === 'INPUT';
     if (!$('#bossPanel').hidden) { if (e.code === 'Escape') $('#bossBox [data-act=close]')?.click(); return; }
-    if (e.code === 'Escape') { if (overlayOpen()) { $('#map').hidden = true; $('#help').hidden = true; closePanel(); } return; }
+    if (e.code === 'Escape') { if (overlayOpen()) { $('#map').hidden = true; $('#help').hidden = true; $('#goalsPanel').hidden = true; closePanel(); } return; }
     if (!$('#panel').hidden) {
       if (e.code === 'Enter') { e.preventDefault(); if (current?.done) newTask(); else check(); }
       return;
@@ -528,6 +541,7 @@ function setupInput() {
     keys[e.code] = true;
     if (e.code === 'KeyE' && inside) openBuilding(inside);
     if (e.code === 'KeyM') showMap();
+    if (e.code === 'KeyZ') showGoals();
     if (e.code === 'KeyH') showHelp();
     if (e.code === 'KeyV') { third = !third; try { localStorage.setItem('blockquest1a_view', third ? '0' : '1'); } catch { } }
     if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code)) e.preventDefault();
@@ -547,7 +561,9 @@ function setupInput() {
   });
   $('#checkBtn').onclick = check; $('#nextBtn').onclick = newTask; $('#hintBtn').onclick = showHint;
   $('#closeBtn').onclick = closePanel; $('#lvClose').onclick = closePanel; $('#lvUp').onclick = levelUp; $('#infoClose').onclick = closePanel;
-  $('#mapBtn').onclick = showMap; $('#mapClose').onclick = () => { $('#map').hidden = true; paused = false; };
+  $('#mapBtn').onclick = showMap;
+  $('#goalsBtn').onclick = () => showGoals();
+  $('#goalsClose').onclick = () => { $('#goalsPanel').hidden = true; paused = false; }; $('#mapClose').onclick = () => { $('#map').hidden = true; paused = false; };
   $('#mapCanvas').onclick = mapClick;
   $('#helpBtn').onclick = showHelp; $('#helpClose').onclick = () => { $('#help').hidden = true; paused = false; };
   $('#saveBtn').onclick = saveOnline;

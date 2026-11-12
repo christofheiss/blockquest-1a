@@ -3,6 +3,7 @@ import { BUILDINGS, STAGES, WORLDS } from './tasks.js';
 import { CONFIG } from './config.js';
 import * as C from './core.js';
 import { BOSSES, mountFight, bossSvg } from './boss.js';
+import { goalsHtml, GOALS } from './goals.js';
 
 const VIA = 'app';
 const $ = (s) => document.querySelector(s);
@@ -99,6 +100,7 @@ function route() {
   });
   if (view === 'thema' && BYID[arg] && C.buildingOpen(openWorlds, BYID[arg])) renderTopic(arg);
   else if (view === 'boss' && BOSSES[arg] && C.bossOpen(S, openWorlds, arg)) renderBoss(arg);
+  else if (view === 'ziele') renderGoals(GOALS[arg] ? arg : 'te');
   else if (view === 'level') renderLevel();
   else if (view === 'stand') renderStand();
   else renderThemes();
@@ -278,6 +280,12 @@ function badgesHtml() {
     const sub = have.gold ? 'Gold!' : have.silver ? `Gold: ${p.gold} / ${C.BADGE_NEED.gold} auf ★★★` : `${p.silver} / ${C.BADGE_NEED.silver} ab ★★`;
     return `<li class="${have.gold ? 'gold' : have.silver ? 'silver' : ''}" title="${esc(b.goal)}"><i>${b.icon}</i><b>${esc(b.name)}</b><span>${b.lz} · ${sub}</span></li>`;
   }).join('')}</ul>`;
+}
+
+// ---------- Lernziele und Kriterienraster ----------
+function renderGoals(w) {
+  const link = (x) => x.startsWith('#tab:') ? `href="#/ziele/${x.slice(5)}"` : `href="#/thema/${x}"`;
+  $('#main').innerHTML = `<h1>Lernziele und Prüfung</h1><p class="small">Pro Thema: was du am Schluss können sollst und wie die Prüfung in Microsoft Forms bewertet wird.</p>` + goalsHtml(S, w, link);
 }
 
 // ---------- Mein Stand ----------

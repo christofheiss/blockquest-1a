@@ -6,6 +6,7 @@
 <title>BlockQuest 1A</title>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/extras.css">
+<link rel="stylesheet" href="css/goals.css">
 </head>
 <body>
 
@@ -68,6 +69,7 @@
   <div id="menu">
     <button id="worldsBtn" title="Welt wechseln">Welten</button>
     <button id="mapBtn" title="Karte (M)">Karte</button>
+    <button id="goalsBtn" title="Lernziele und Kriterienraster (Z)">Ziele</button>
     <button id="saveBtn" title="Spielstand als Datei speichern">Speichern</button>
     <button id="fileBtn" title="Spielstand als Datei herunterladen, z. B. für ein anderes Gerät" hidden>Als Datei</button>
     <button id="helpBtn" title="Hilfe (H)">Hilfe</button>
@@ -118,6 +120,14 @@
   <!-- Boss-Kampf: Fenster rechts, der Boss bleibt links im Bild sichtbar -->
   <div id="bossPanel" hidden><div id="bossBox" class="window"></div></div>
 
+  <!-- Lernziele und Kriterienraster -->
+  <div id="goalsPanel" class="overlay" hidden>
+    <div class="window">
+      <header><h2>Lernziele und Prüfung</h2><button id="goalsClose" class="x">Zurück in die Welt</button></header>
+      <div id="goalsBody"></div>
+    </div>
+  </div>
+
   <!-- Karte -->
   <div id="map" class="overlay" hidden>
     <div class="window">
@@ -138,7 +148,7 @@
         <tr><td><kbd>Leertaste</kbd> · <kbd>Shift</kbd></td><td>springen · rennen</td></tr>
         <tr><td><kbd>E</kbd></td><td>Gebäude betreten, wenn du drin stehst</td></tr>
         <tr><td><kbd>V</kbd></td><td>Kamera: hinter deiner Figur oder aus deinen Augen</td></tr>
-        <tr><td><kbd>M</kbd> · <kbd>H</kbd></td><td>Karte · Hilfe</td></tr>
+        <tr><td><kbd>M</kbd> · <kbd>Z</kbd> · <kbd>H</kbd></td><td>Karte · Lernziele und Kriterienraster · Hilfe</td></tr>
         <tr><td>Tablet</td><td>Links der Joystick zum Gehen (ganz aussen: rennen), rechts Springen. Wische im Bild, um dich umzuschauen.</td></tr>
       </table>
       <p>In jedem Gebäude gibt es Aufgaben auf drei Niveaus: <b>★ Grundanspruch</b> (5 Coins), <b>★★ Standard</b> (10 Coins) und <b>★★★ Erweiterung</b> (20 Coins). Die Erweiterung öffnet sich, wenn du 3 Standard-Aufgaben richtig gelöst hast.</p>
