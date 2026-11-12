@@ -56,22 +56,25 @@ Jede Station hat drei Niveaus: ★ Grundanspruch (5 Coins), ★★ Standard (10 
 
 ## Freigabeplan nach Lektionen
 
-Vor L1 in der Masterview: «Alles zurücksetzen», Terme-Insel offen mit nur der Meter-Werkstatt, Daten-Stadt gesperrt, beide Bosse schlafen. Token-Karten austeilen.
+Die Übungen laufen in BlockQuest, die Prüfungen in Microsoft Forms: **Prüfung Thema J in L8**, **Prüfung Thema K in L19** (A7 Liniendiagramm auf Papier). Die Verbindung Lektion → mathbuch → Station steht auch in `Mathbuch_Zuordnung_Mt1A_BlockQuest.docx`.
 
-| Woche / Lektion | Unterricht (mathbuch 1) | in der Masterview öffnen |
+Vor L1 in der Masterview: «Alles zurücksetzen», Terme-Insel offen mit nur der Meter-Werkstatt (übrige Stationen sperren), Daten-Stadt gesperrt, beide Bosse schlafen. Token-Karten austeilen.
+
+| Woche / Lektion | Unterricht (mathbuch 1) | Übung in BlockQuest · Masterview |
 |---|---|---|
-| W1 Mo L1–L2 | S. 54 A1 Meter füllen, gleichartige Glieder | Meter-Werkstatt |
-| W1 Mi L3 | S. 55 A2 A Klammerregeln | Klammer-Brücke |
-| W1 Do L4–L5 | S. 55 A2 B Distributivgesetz · S. 56 A3 Flächen | Distributiv-Fabrik · Flächen-Atelier |
-| W2 Mo L6–L7 | S. 57 A4 gleichwertige Terme · S. 58 A5 Terme würfeln | Prüf-Labor · Würfel-Arena |
-| W2 Mi L8 | S. 59 A6 + Mini-Lernkontrolle J | **Klammer-Koloss wecken**, Kacheln LZ1–LZ4 ansehen |
-| W2 Do L9–L10 | S. 60 A1 Papierkugeln, Mittelwert, Median | Welt **Daten-Stadt** öffnen: Papierkugel-Stadion |
-| W3 Mo L11–L12 | S. 61 A2 Klassieren · S. 62 A3 Schokolinsen | Sortier-Lager · Schokolinsen-Markt |
-| W3 Mi L13 | S. 63 A4 A Diagramme interpretieren | Diagramm-Galerie |
-| W3 Do L14–L15 | S. 63 A4 B Diagramme erstellen · Zusatz-AB | – (alles bis hier offen lassen) |
-| W4 Mo L16–L17 | S. 64 A5 Bildschirmzeit · S. 65 A6 + irreführende Diagramme | Bildschirmzeit-Studio · Faktencheck-Redaktion · **Zerr-Orakel wecken** |
-| W4 Mi L18 | Repetition J und K, Übungsprüfung | Boss-Statistik → Posten zuteilen |
-| W4 Do L19 | **Abschlussprüfung** (Forms) | Laptops zu. Danach CSV exportieren, «Alles zurücksetzen» |
+| W1 Mo L1–L2 | S. 54 A1 Meter füllen, gleichartige Glieder | Anmeldung testen · Meter-Werkstatt |
+| W1 Mi L3 | S. 55 A2 A Klammerregeln | Klammer-Brücke öffnen |
+| W1 Do L4–L5 | S. 55 A2 B Distributivgesetz · S. 56 A3 Flächen | Distributiv-Fabrik · Flächen-Atelier öffnen |
+| W2 Mo L6–L7 | S. 57 A4 gleichwertige Terme · S. 58 A5 Terme würfeln, Repetition J | Prüf-Labor · Würfel-Arena öffnen, **Klammer-Koloss wecken** |
+| W2 Mi L8 | **Prüfung Thema J (Forms)** | vorher Terme-Insel sperren, danach öffnen; CSV sichern |
+| W2 Do L9–L10 | S. 60 A1 Papierkugeln, Mittelwert, Median | nach L9 Welt **Daten-Stadt** öffnen: Papierkugel-Stadion |
+| W3 Mo L11–L12 | S. 61 A2 Klassieren · S. 62 A3 Schokolinsen | Sortier-Lager · Schokolinsen-Markt öffnen |
+| W3 Mi L13 | S. 63 A4 A Diagramme interpretieren | Diagramm-Galerie öffnen |
+| W3 Do L14–L15 | S. 63 A4 B Diagramme erstellen · Zusatz-AB Linien-/Balkendiagramm | Sortier-Lager ★★–★★★ (Kreiswinkel, Diagrammtyp) |
+| W4 Mo L16–L17 | S. 64 A5 Bildschirmzeit · S. 65 A6 + irreführende Diagramme | Bildschirmzeit-Studio · Faktencheck-Redaktion öffnen, **Zerr-Orakel wecken** |
+| W4 Mi L18 | Repetition Thema K, Übungsprüfung | Boss-Statistik → Stationen zuteilen |
+| W4 Do L19 | **Prüfung Thema K (Forms + A7 Papier)** | vorher Daten-Stadt sperren; CSV exportieren |
+| W4 Do L20 | Besprechung Prüfung J, Reflexion, Feedback | beide Welten offen; nach dem Praktikum «Alles zurücksetzen» |
 
 Nach jeder Lektion: «Online-Spielstände laden» → «Klassen-Coins übertragen».
 
