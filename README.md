@@ -7,6 +7,7 @@ Die Schülerinnen und Schüler steuern eine eigene Block-Figur durch zwei Welten
 - **Spiel:** `index.html`
 - **Lern-App ohne 3D-Welt:** `app.html` (gleiche Aufgaben und gleiches Konto, als Web-App installierbar)
 - **Masterview für die Lehrperson:** `lehrer.html` (nur mit Dongle-Datei und Passwort)
+- **Lernziele und Kriterienkatalog:** `ziele.html` (ohne Anmeldung, zum Zeigen und Drucken)
 - **Einrichtung:** `setup.html` (Schlüssel, Codes, Dongle, Token-Karten; nur lokal benutzen)
 
 Alle Figuren, Grafiken und Welten sind selbst gezeichnet (prozedural). Es gibt keine Namen, Logos, Figuren oder Inhalte aus anderen Spielen.

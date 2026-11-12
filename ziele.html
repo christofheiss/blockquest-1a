@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BlockQuest 1A · Lernziele</title>
+<link rel="stylesheet" href="css/goals.css">
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Trebuchet MS", system-ui, sans-serif; color: #1c1a33;
+    background: radial-gradient(circle at 12% 8%, #ff5fc8 0 5%, transparent 6%), radial-gradient(circle at 90% 14%, #49d6ff 0 5%, transparent 6%), linear-gradient(160deg, #3b2bd1, #8a2bd1 45%, #ff4fa3); background-attachment: fixed; min-height: 100vh; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 24px 16px 48px; display: flex; flex-direction: column; gap: 22px; }
+  .top { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; color: #fff; }
+  .top h1 { margin: 0; font-size: 2rem; font-weight: 900; }
+  .top h1 span { background: #a6f22a; color: #1c1a33; border-radius: 8px; padding: 0 .3em; }
+  .top p { margin: 4px 0 0; font-weight: 600; opacity: .95; }
+  .nav { display: flex; flex-wrap: wrap; gap: 8px; }
+  .nav a, .nav button { font: 800 .95rem "Trebuchet MS", system-ui; color: #1c1a33; text-decoration: none; background: #fff; border: 2px solid #1c1a33; border-radius: 12px; padding: 8px 14px; box-shadow: 0 4px 0 #1c1a33; cursor: pointer; }
+  .nav a.lime { background: #a6f22a; }
+  .card { background: #fffdf7; border: 3px solid #1c1a33; border-radius: 20px; padding: 18px; box-shadow: 0 8px 0 #1c1a33; }
+  .info { font-size: .9rem; }
+  .info p { margin: 0 0 6px; }
+  @media print { body { background: #fff; } .nav, .info { display: none; } .card { box-shadow: none; border: 0; padding: 0; } .top { color: #1c1a33; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div><h1>BlockQuest <span>1A</span></h1><p>Lernziele und Kriterienkatalog · mathbuch 1, Thema J und K</p></div>
+    <nav class="nav" aria-label="Seiten">
+      <a class="lime" href="#thema-J">Thema J</a><a class="lime" href="#thema-K">Thema K</a>
+      <a href="index.html">3D-Spiel</a><a href="app.html">Lern-App</a><button type="button" onclick="print()">Drucken</button>
+    </nav>
+  </header>
+  <div class="card info">
+    <p><b>So liest du diese Seite:</b> Pro Thema stehen zuerst die Lernziele als «Ich kann …»-Sätze. Hake ab, was du schon kannst. Darunter siehst du den Kriterienkatalog: Er zeigt, wie die Prüfung in Microsoft Forms bewertet wird und welche Station in BlockQuest dazu passt.</p>
+    <p>Deinen eigenen Stand mit Ampel siehst du nach dem Anmelden in der Lern-App unter «Ziele» oder im Spiel mit der Taste <b>Z</b>.</p>
+  </div>
+  <div class="card" id="te"></div>
+  <div class="card" id="dd"></div>
+</div>
+<script type="module">
+  import { catalogHtml } from './js/goals.js';
+  document.getElementById('te').innerHTML = catalogHtml('te');
+  document.getElementById('dd').innerHTML = catalogHtml('dd');
+  // Häkchen zum Selbsteinschätzen (nur auf diesem Gerät)
+  document.querySelectorAll('.gl-check').forEach((el, i) => {
+    const k = 'blockquest1a_ziel_' + i;
+    try { if (localStorage.getItem(k)) el.classList.add('on'); } catch { }
+    el.setAttribute('role', 'checkbox'); el.tabIndex = 0;
+    const set = () => { el.classList.toggle('on'); el.setAttribute('aria-checked', el.classList.contains('on')); try { el.classList.contains('on') ? localStorage.setItem(k, '1') : localStorage.removeItem(k); } catch { } };
+    el.onclick = set; el.onkeydown = (e) => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); set(); } };
+  });
+</script>
+</body>
+</html>

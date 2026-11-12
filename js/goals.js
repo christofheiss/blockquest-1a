@@ -85,6 +85,32 @@ export function goalsHtml(S, w, link) {
     }).join('')}
       <div class="gl-row gl-total"><div class="gl-a"><b>Total</b></div><div class="gl-k"><b>${G.raster.reduce((a, r) => a + r.p, 0)} Punkte</b></div><div class="gl-me"></div></div>
     </div>
+    <p class="gl-note"><a href="ziele.html" target="_blank" rel="noopener">Alle Lernziele und den Kriterienkatalog auf einer Seite ansehen oder drucken</a></p>
     <p class="gl-note">Die Ampel zeigt deinen Stand in BlockQuest: <b>grün</b> = Abzeichen geschafft (5 Aufgaben ab ${STAGES[2].stars} im ersten Versuch ohne Lösungshilfe), <b>gelb</b> = schon geübt, <b>rot</b> = noch nicht geübt. Sie ersetzt keine Note.</p>
   </div>`;
+}
+
+// ---------- Eigene Seite ziele.html: Lernziele und Kriterienkatalog ohne Anmeldung ----------
+export function catalogHtml(w) {
+  const G = GOALS[w];
+  const st = (id) => `<span class="gl-st">${esc(BYID[id].name)}</span>`;
+  return `<section class="gl gl-${w} gl-cat" id="thema-${G.code}">
+    <header class="gl-head">
+      <span class="gl-code">${G.code}</span>
+      <div><span class="gl-eyebrow">${esc(G.world)} · ${esc(G.pages)}</span><h2>${esc(G.name)}</h2><p>${esc(G.exam)}</p></div>
+      <div class="gl-meter"><b>${G.lz.length}</b><span>Lernziele</span></div>
+    </header>
+    <h3 class="gl-h">🎯 Lernziele</h3>
+    <ol class="gl-lz">${G.lz.map(g => `<li class="gl-card">
+      <div class="gl-check" aria-hidden="true"></div>
+      <div class="gl-body"><span class="gl-tag">${g.lz}</span><p class="gl-ich">${esc(g.ich)}</p><p class="gl-bsp">${esc(g.bsp)}</p>
+        <div class="gl-sts">Üben in BlockQuest: ${g.st.map(st).join('')}</div></div></li>`).join('')}</ol>
+    <h3 class="gl-h">📋 Kriterienkatalog der Prüfung</h3>
+    <table class="gl-table">
+      <thead><tr><th>Aufgabe</th><th>Lernziel</th><th>Kriterium für die volle Punktzahl</th><th>Punkte</th><th>Üben</th></tr></thead>
+      <tbody>${G.raster.map(r => `<tr><td><b>${r.a}</b><br><span class="gl-sub">${esc(r.t)}</span></td><td>${r.lz.map(l => `<span class="gl-tag">${l}</span>`).join(' ')}</td>
+        <td>${esc(r.krit)}${r.paper ? '<br><span class="gl-paper">✏️ von Hand auf Papier</span>' : ''}</td><td class="gl-pts">${r.p}</td><td>${r.st.map(st).join(' ')}</td></tr>`).join('')}</tbody>
+      <tfoot><tr><td colspan="3"><b>Total</b></td><td class="gl-pts">${G.raster.reduce((a, r) => a + r.p, 0)}</td><td></td></tr></tfoot>
+    </table>
+  </section>`;
 }

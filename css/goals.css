@@ -59,3 +59,36 @@
   .gl-me { flex-direction: row; justify-content: flex-start; }
 }
 .gl h2, .gl h3 { font-family: "Trebuchet MS", system-ui, sans-serif; }
+
+/* Eigene Seite ziele.html */
+.gl-check { width: 26px; height: 26px; border: 3px solid var(--ink); border-radius: 7px; background: #fff; align-self: start; }
+.gl-table { width: 100%; border-collapse: separate; border-spacing: 0; background: #fff; border: 2px solid var(--ink); border-radius: 14px; overflow: hidden; box-shadow: 0 4px 0 var(--ink); font-size: .92rem; }
+.gl-table th { text-align: left; background: var(--ink); color: #fff; padding: 8px 10px; font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; }
+.gl-table td { padding: 10px; border-top: 2px solid #e6e4f2; vertical-align: top; }
+.gl-table tfoot td { background: var(--lime); border-top: 2px solid var(--ink); font-size: 1rem; }
+.gl-pts { text-align: center; font: 900 1.3rem/1 "Trebuchet MS", system-ui; color: var(--theme); }
+.gl-table tfoot .gl-pts { color: var(--ink); }
+.gl-sub { font-size: .8rem; color: #4b4868; }
+.gl-table .gl-st { display: inline-block; margin: 2px 0; font-size: .78rem; }
+.gl-cat .gl-st { cursor: default; }
+@media (max-width: 640px) {
+  .gl-table thead { display: none; }
+  .gl-table, .gl-table tbody, .gl-table tr, .gl-table td { display: block; width: 100%; }
+  .gl-table tr { border-top: 2px solid var(--ink); }
+  .gl-table td { border-top: 0; padding: 6px 12px; }
+  .gl-pts { text-align: left; }
+}
+@media print {
+  .gl-head, .gl-card, .gl-table, .gl-tab { box-shadow: none !important; }
+  .gl-cat { break-after: page; }
+  .gl-head { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+.gl-check { cursor: pointer; display: grid; place-items: center; }
+.gl-check.on { background: #a6f22a; }
+.gl-check.on::after { content: "✓"; font-weight: 900; font-size: 1rem; }
+@media (max-width: 640px) {
+  .gl-table tfoot { display: block; }
+  .gl-table tfoot tr { width: 100%; display: flex; justify-content: space-between; align-items: center; background: var(--lime); }
+  .gl-table tfoot td { width: auto; display: block; border: 0; }
+  .gl-table .gl-pts::after { content: " P."; font-size: .9rem; }
+}
