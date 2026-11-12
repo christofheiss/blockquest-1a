@@ -41,9 +41,16 @@
   <div class="card" id="dd"></div>
 </div>
 <script type="module">
-  import { catalogHtml } from './js/goals.js';
-  document.getElementById('te').innerHTML = catalogHtml('te');
-  document.getElementById('dd').innerHTML = catalogHtml('dd');
+  // Versionsnummer im Pfad: Browser laden nicht eine ältere, zwischengespeicherte goals.js
+  let mod;
+  try { mod = await import('./js/goals.js?v=2026-11-12'); }
+  catch (e) { mod = null; }
+  if (!mod || !mod.catalogHtml) {
+    for (const id of ['te', 'dd']) document.getElementById(id).innerHTML = '<p><b>Die Seite konnte nicht geladen werden.</b> Bitte mit Cmd + Shift + R (Windows: Ctrl + F5) neu laden.</p>';
+  } else {
+    document.getElementById('te').innerHTML = mod.catalogHtml('te');
+    document.getElementById('dd').innerHTML = mod.catalogHtml('dd');
+  }
   // Häkchen zum Selbsteinschätzen (nur auf diesem Gerät)
   document.querySelectorAll('.gl-check').forEach((el, i) => {
     const k = 'blockquest1a_ziel_' + i;
