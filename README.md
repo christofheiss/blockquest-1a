@@ -1,6 +1,6 @@
 # BlockQuest 1A
 
-Ein Lernspiel in einer bunten 3D-Blockwelt für die 1. Sek (Klasse 1A, Niveau A, 16 SuS), aufgebaut auf **mathbuch 1, LU 10 «Terme umformen» (J, S. 54–59)** und **LU 11 «Daten und Diagramme» (K, S. 60–65)**. Praktikum Januar 2027, 4 Wochen, 19 Lektionen, Abschlussprüfung in L19.
+Ein Lernspiel in einer bunten 3D-Blockwelt für die 1. Sek (Klasse 1A, Niveau A, 16 SuS), aufgebaut auf **mathbuch 1, Thema J «Terme umformen» (S. 54–59)** und **Thema K «Daten und Diagramme» (S. 60–65)**. Praktikum Januar 2027, 4 Wochen, 19 Lektionen, Abschlussprüfung in L19.
 
 Die Schülerinnen und Schüler steuern eine eigene Block-Figur durch zwei Welten, betreten Stationen und lösen dort Aufgaben. Für richtige Lösungen gibt es Coins. Damit kaufen sie im Level-Turm ein höheres Level oder im Shop etwas fürs Aussehen der Figur. Pro Welt gibt es einen Hindernis-Parcours und einen Boss, der nur mit Aufgaben besiegt wird.
 
@@ -13,20 +13,20 @@ Alle Figuren, Grafiken und Welten sind selbst gezeichnet (prozedural). Es gibt k
 
 ## Welten und Stationen
 
-| LU | Welt | Station | Lernziel | mathbuch 1 |
+| Thema | Welt | Station | Lernziel | mathbuch 1 |
 |---|---|---|---|---|
-| 10 | Terme-Insel | Meter-Werkstatt | LZ1 gleichartige Glieder zusammenfassen | S. 54 A1 B, C · Prüfung A1 |
-| 10 | Terme-Insel | Klammer-Brücke | LZ1 · LZ4 Klammerregeln bei + und −, mit Zahlen prüfen | S. 55 A2 A |
-| 10 | Terme-Insel | Distributiv-Fabrik | LZ3 ausmultiplizieren, (a + b)(c + d), ausklammern | S. 55 A2 B, C · Prüfung A2 |
-| 10 | Terme-Insel | Flächen-Atelier | LZ3 Umfang und Fläche als Produkt- und Summenterm | S. 56 A3, S. 57 A4 B, C |
-| 10 | Terme-Insel | Würfel-Arena | LZ2 Werte einsetzen (Termkarten «Terme würfeln») | S. 58 A5 · Prüfung A3 |
-| 10 | Terme-Insel | Prüf-Labor | LZ4 gleichwertige Terme, Fehler finden, magisches Quadrat | S. 57 A4 A, S. 59 A6 · Prüfung A4, A5 |
-| 11 | Daten-Stadt | Papierkugel-Stadion | LZ5 Minimum, Maximum, Mittelwert, Median | S. 60 A1 |
-| 11 | Daten-Stadt | Sortier-Lager | LZ6 Strichliste, Klassen, passendes Diagramm, Kreiswinkel | S. 61 A2, S. 63 A4 B · Prüfung A7 |
-| 11 | Daten-Stadt | Schokolinsen-Markt | LZ7 absolute und relative Häufigkeit | S. 62 A3 · Prüfung A8 |
-| 11 | Daten-Stadt | Diagramm-Galerie | LZ5 Säulen- und Kreisdiagramme lesen, Aussagen prüfen | S. 63 A4 A · Prüfung A6 |
-| 11 | Daten-Stadt | Bildschirmzeit-Studio | LZ5 · LZ8 Diagramme vergleichen | S. 64 A5 B, C |
-| 11 | Daten-Stadt | Faktencheck-Redaktion | LZ8 irreführende Diagramme, kritische Fragen, kcal/kJ | S. 65 A6 · Zusatz-AB · Prüfung A9, A10 |
+| J | Terme-Insel | Meter-Werkstatt | LZ1 gleichartige Glieder zusammenfassen | S. 54 A1 B, C · Prüfung A1 |
+| J | Terme-Insel | Klammer-Brücke | LZ1 · LZ4 Klammerregeln bei + und −, mit Zahlen prüfen | S. 55 A2 A |
+| J | Terme-Insel | Distributiv-Fabrik | LZ3 ausmultiplizieren, (a + b)(c + d), ausklammern | S. 55 A2 B, C · Prüfung A2 |
+| J | Terme-Insel | Flächen-Atelier | LZ3 Umfang und Fläche als Produkt- und Summenterm | S. 56 A3, S. 57 A4 B, C |
+| J | Terme-Insel | Würfel-Arena | LZ2 Werte einsetzen (Termkarten «Terme würfeln») | S. 58 A5 · Prüfung A3 |
+| J | Terme-Insel | Prüf-Labor | LZ4 gleichwertige Terme, Fehler finden, magisches Quadrat | S. 57 A4 A, S. 59 A6 · Prüfung A4, A5 |
+| K | Daten-Stadt | Papierkugel-Stadion | LZ5 Minimum, Maximum, Mittelwert, Median | S. 60 A1 |
+| K | Daten-Stadt | Sortier-Lager | LZ6 Strichliste, Klassen, passendes Diagramm, Kreiswinkel | S. 61 A2, S. 63 A4 B · Prüfung A7 |
+| K | Daten-Stadt | Schokolinsen-Markt | LZ7 absolute und relative Häufigkeit | S. 62 A3 · Prüfung A8 |
+| K | Daten-Stadt | Diagramm-Galerie | LZ5 Säulen- und Kreisdiagramme lesen, Aussagen prüfen | S. 63 A4 A · Prüfung A6 |
+| K | Daten-Stadt | Bildschirmzeit-Studio | LZ5 · LZ8 Diagramme vergleichen | S. 64 A5 B, C |
+| K | Daten-Stadt | Faktencheck-Redaktion | LZ8 irreführende Diagramme, kritische Fragen, kcal/kJ | S. 65 A6 · Zusatz-AB · Prüfung A9, A10 |
 
 Lernziele: LZ1 gleichartige Glieder, LZ2 Werte einsetzen, LZ3 Distributivgesetz, LZ4 Umformungen durch Einsetzen prüfen, LZ5 Diagramme lesen und auswerten, LZ6 Daten ordnen und Diagramme erstellen, LZ7 absolut und relativ, LZ8 Aussagen prüfen und kritische Fragen stellen.
 

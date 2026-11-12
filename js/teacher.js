@@ -1,5 +1,5 @@
 // BlockQuest 1A – Masterview für die Lehrperson
-import { BUILDINGS, STAGES, WORLDS } from './tasks.js';
+import { BUILDINGS, STAGES, WORLDS, THEMA } from './tasks.js';
 import { CONFIG } from './config.js';
 import * as K from './crypto.js';
 import { titleOf, BADGES, CLASS_STAGES, classInfo } from './core.js';
@@ -113,7 +113,7 @@ function renderWorldToggles(busy = false) {
       const bOn = worldState[b.id] !== false;
       return `<button class="chip ${bOn ? 'on' : 'off'}" data-k="${b.id}" title="${bOn ? 'Klicken zum Sperren' : 'Klicken zum Öffnen'}" ${dis}>${bOn ? '✓' : '✕'} ${esc(b.name)}</button>`;
     }).join('');
-    return `<div class="worldtoggle"><span><b>${esc(w.name)}</b> · ${esc('LU ' + w.lu)}</span>
+    return `<div class="worldtoggle"><span><b>${esc(w.name)}</b> · Thema ${THEMA[w.lu]}</span>
       <span class="st ${on ? 'on' : 'off'}">${on ? 'offen' : 'gesperrt'}</span>
       <button data-k="${w.id}" ${on ? '' : 'class="primary"'} ${dis}>${on ? 'Welt sperren' : 'Welt freischalten'}</button>
       <button data-k="boss_${w.id}" class="${bossOn ? '' : 'primary'}" ${dis}>${bossOn ? `${esc(BOSSES[w.id].name)} schlafen lassen` : `${esc(BOSSES[w.id].name)} für alle wecken`}</button></div>
@@ -215,7 +215,7 @@ function render() {
     ${Object.entries(lz).sort().map(([k, v]) => `<div class="tile ${v.n ? (v.c / v.n >= 0.8 ? 'g' : v.c / v.n >= 0.5 ? 'y' : 'r') : ''}"><b>${v.n ? Math.round(v.c / v.n * 100) + ' %' : '–'}</b><span>${esc(k)} · ${v.n} Aufgaben</span></div>`).join('')}` : '';
   // Tabelle
   const head = `<thead><tr><th>ID</th><th>Name (nur im Dongle)</th><th>Level</th><th>Coins</th><th>verdient</th><th>Aufgaben</th><th>Treffer</th><th>Hilfen</th><th>Lernzeit</th><th>Zugang</th><th>letzte Aktivität</th><th title="Abzeichen (davon Gold) von 8">Abzeichen</th><th>Boss</th>
-    ${BUILDINGS.map(b => `<th class="b" title="${esc(b.topic)}">${b.lu === 11 ? 'LU11' : 'LU10'} ${esc(b.name)}</th>`).join('')}</tr></thead>`;
+    ${BUILDINGS.map(b => `<th class="b" title="${esc(b.topic)}">${THEMA[b.lu]} · ${esc(b.name)}</th>`).join('')}</tr></thead>`;
   const ids = new Set([...list.map(s => s.id), ...Object.keys(dongle.names)]);
   const rows = [...ids].sort().map(id => {
     const st = students.get(id);
@@ -238,7 +238,7 @@ function showDetail(id) {
   const s = summary(st), name = dongle.names[id];
   const byB = BUILDINGS.map(b => {
     const x = st.stats[b.id];
-    return `<tr><td>LU ${b.lu}</td><td>${esc(b.name)}</td><td>${esc(b.topic)}</td><td>${esc(b.lz)}</td>${[1, 2, 3].map(k => `<td>${x[k].c} / ${x[k].c + x[k].w}</td>`).join('')}</tr>`;
+    return `<tr><td>${THEMA[b.lu]}</td><td>${esc(b.name)}</td><td>${esc(b.topic)}</td><td>${esc(b.lz)}</td>${[1, 2, 3].map(k => `<td>${x[k].c} / ${x[k].c + x[k].w}</td>`).join('')}</tr>`;
   }).join('');
   const log = st.log.slice().reverse().slice(0, 200).map(l => `<tr><td>${fmtDate(l.t)}</td><td>${l.via === 'app' ? 'App' : 'Spiel'}</td><td>${esc(logName(l))}${l.boss && BYID[l.b] ? ` <span class="small">(Boss, Phase ${l.ph})</span>` : ''}</td>
     <td>${l.s ? STAGES[l.s].stars : ''}</td><td class="${l.ok ? 'ok' : 'no'}">${BYID[l.b] ? (l.ok ? 'richtig' : 'falsch') : ''}</td><td>${l.tries || ''}${l.hint ? ' · Hilfe' : ''}</td>
@@ -250,7 +250,7 @@ function showDetail(id) {
     <p class="small">Spielstand vom ${fmtDate(st.lastSave)} · ${s.c} von ${s.n} Aufgaben richtig · ${st.coins} Coins (verdient ${st.earned}) · Lernzeit ${fmtTime(s.ms)}</p>
     <div class="cols">
       <div><h2>Gebäude / Themen und Niveaus (richtig / bearbeitet)</h2>
-        <div class="tw"><table class="grid"><thead><tr><th>LU</th><th>Gebäude</th><th>Thema in der App</th><th>Lernziel</th><th>★ Grund</th><th>★★ Standard</th><th>★★★ Erweiterung</th></tr></thead><tbody>${byB}</tbody></table></div></div>
+        <div class="tw"><table class="grid"><thead><tr><th>Thema</th><th>Station</th><th>Thema in der App</th><th>Lernziel</th><th>★ Grund</th><th>★★ Standard</th><th>★★★ Erweiterung</th></tr></thead><tbody>${byB}</tbody></table></div></div>
       <div><h2>Letzte Sitzungen</h2><ul>${sessions || '<li>–</li>'}</ul></div>
     </div>
     <div class="cols">

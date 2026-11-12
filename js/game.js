@@ -4,7 +4,7 @@ import { buildWorld, buildingAt, setFamePillar, setClassTower, courseGoal, cours
 import { golem, oracle, pet, avatar, defaultShirt } from './models.js';
 import { B } from './engine.js';
 import { BOSSES, mountFight } from './boss.js';
-import { BUILDINGS, STAGES, WORLDS } from './tasks.js';
+import { BUILDINGS, STAGES, WORLDS, THEMA } from './tasks.js';
 import { CONFIG } from './config.js';
 import * as K from './crypto.js';
 import * as C from './core.js';
@@ -242,7 +242,7 @@ function refreshLabels() {
       : id === 'boss' ? `<b>${esc(BOSSES[S.world].name)}</b><span>${S.boss[S.world].wins ? 'besiegt ✓ · nochmals kämpfen' : C.bossOpen(S, openWorlds, S.world) ? 'bereit zum Kampf' : 'schläft noch'}</span>`
       : id === 'klasse' ? `<b>Klassen-Turm</b><span>Stufe ${C.classInfo(openWorlds).stage} von ${C.CLASS_STAGES}</span>`
       : id === 'parcours' ? `<b>Parcours</b><span>${S.parcours[S.world] ? 'geschafft ✓' : 'Springe bis zur Fahne!'}</span>`
-      : `<b>${esc(m.b.name)}</b><span>LU ${m.b.lu} · ${C.buildingOpen(openWorlds, m.b) ? stageProgress(id) : 'noch gesperrt'}</span>`;
+      : `<b>${esc(m.b.name)}</b><span>Thema ${THEMA[m.b.lu]} · ${C.buildingOpen(openWorlds, m.b) ? stageProgress(id) : 'noch gesperrt'}</span>`;
   }
 }
 function updateLabels() {
@@ -298,7 +298,7 @@ function openBuilding(id) {
   current = { id, stage: recommended(id) };
   $('#panel').hidden = false; $('#prompt').hidden = true;
   $('#pTitle').textContent = b.name;
-  $('#pMeta').innerHTML = `LU ${b.lu} · ${esc(b.lz)} · ${esc(b.goal)}<br><span class="ref">${esc(b.ref)}</span>`;
+  $('#pMeta').innerHTML = `Thema ${THEMA[b.lu]} · ${esc(b.lz)} · ${esc(b.goal)}<br><span class="ref">${esc(b.ref)}</span>`;
   newTask();
 }
 function closePanel() {
@@ -480,7 +480,7 @@ function showMap() {
   $('#mapLegend').innerHTML = mapOrder().map((id, i) => {
     const m = worldData.meta[id];
     const name = id === 'level' ? 'Level-Turm' : id === 'boss' ? 'Boss-Arena: ' + BOSSES[S.world].name : m.b.name;
-    const sub = id === 'level' ? '' : id === 'boss' ? (C.bossOpen(S, openWorlds, S.world) ? 'bereit' : 'schläft noch') : id === 'klasse' ? `Stufe ${C.classInfo(openWorlds).stage} von ${C.CLASS_STAGES}` : id === 'parcours' ? (S.parcours[S.world] ? 'geschafft ✓' : 'noch offen') : `LU ${m.b.lu} · ${C.buildingOpen(openWorlds, m.b) ? stageProgress(id) : 'gesperrt'}`;
+    const sub = id === 'level' ? '' : id === 'boss' ? (C.bossOpen(S, openWorlds, S.world) ? 'bereit' : 'schläft noch') : id === 'klasse' ? `Stufe ${C.classInfo(openWorlds).stage} von ${C.CLASS_STAGES}` : id === 'parcours' ? (S.parcours[S.world] ? 'geschafft ✓' : 'noch offen') : `Thema ${THEMA[m.b.lu]} · ${C.buildingOpen(openWorlds, m.b) ? stageProgress(id) : 'gesperrt'}`;
     return `<li><button data-id="${id}"><span class="no ${mapCls(id, m)}">${mapSym(id, i)}</span>${esc(name)}${sub ? `<small>${sub}</small>` : ''}</button></li>`;
   }).join('');
   $('#mapLegend').querySelectorAll('button').forEach(btn => btn.onclick = () => teleport(btn.dataset.id));

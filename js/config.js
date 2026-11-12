@@ -7,7 +7,7 @@ export const CONFIG = {
   saveUrl: 'https://blockquest-1a-save.c-heiss.workers.dev',
   dataRepo: 'christofheiss/blockquest-1a-daten',
   teacherPublicKey: {"kty":"RSA","n":"z0OlGveCS43tl2Hzap54KF80Gwt75ykUud3oPEpK63NSkx3EWWYfjI7MkcUvrAT6YcNRP9dXBGQz_hqKbM-Jlxst2m8f1R9JCu4RtI8hSEa1K_UP3j5d5qN5qsN5kbg5jQCZNTDVoS4gquONbIyg2Rle01XnvBM-0OwbrofA5soOLseXeNoBRBuGCvDsdw32FfY20Dm1KjCnpFL3UfCTynvebqpxl229cWgPUaHJsACaPh6mpMWTXreJMjUGCeWTh_rMpXva9yyqahvcASOO0kXg1vvrSFwI858e3SLLanMwXc5KZO_CtqIY17hTAHKSW3bZtrM4CGtcbsxPOBvrqw","e":"AQAB","alg":"RSA-OAEP-256","ext":true,"key_ops":["encrypt"]},
-  // Freigabe, solange der Worker nichts anderes meldet (te = Terme-Insel LU 10, dd = Daten-Stadt LU 11)
+  // Freigabe, solange der Worker nichts anderes meldet (te = Terme-Insel Thema J, dd = Daten-Stadt Thema K)
   worlds: { te: true, dd: false },
   tokenHashes: [
     '2b0105c189c8c6d58bee7e33ad15cae7fe0c83494950a6edc4c536150e92724c', // 1A01

@@ -1,7 +1,7 @@
 # BlockQuest 1A – Kontext für Claude Code
 
 Lernspiel für die Klasse 1A (Sek 1, Niveau A, 16 SuS), Schule Neuenkirch, Schulhaus Sonneweid, Profilpraktikum PH Luzern im Januar 2027 (PL Roger Behrens).
-Autor/Lehrperson: Christof Heiss. Inhalt: **mathbuch 1 (Klett), LU 10 «Terme umformen» (J, S. 54–59) und LU 11 «Daten und Diagramme» (K, S. 60–65)**. Reihenfolge: LU 10 in L1–L7, Prüfung Thema J in L8 (Forms); LU 11 in L9–L17, Repetition L18, Prüfung Thema K in L19 (Forms + A7 auf Papier), L20 Reflexion. Übungen nur in BlockQuest (früher LearningView). Freigabeplan im README, Zuordnung in `../Mathbuch_Zuordnung_Mt1A_BlockQuest.docx`.
+Autor/Lehrperson: Christof Heiss. Inhalt: **mathbuch 1 (Klett), Thema J «Terme umformen» (S. 54–59) und Thema K «Daten und Diagramme» (S. 60–65)**. Im Code steht intern `lu: 10` für J und `lu: 11` für K; angezeigt wird immer `THEMA` (J/K) aus tasks.js. Reihenfolge: J in L1–L7, Prüfung Thema J in L8 (Forms); K in L9–L17, Repetition L18, Prüfung Thema K in L19 (Forms + A7 auf Papier), L20 Reflexion. Übungen nur in BlockQuest (früher LearningView). Freigabeplan im README, Zuordnung in `../Mathbuch_Zuordnung_Mt1A_BlockQuest.docx`.
 Sprache der Oberfläche: **Deutsch (Schweiz, kein ß)**, Dezimalpunkt wie im mathbuch. Zielgeräte: Laptops (Tastatur, Touchpad), auch iPad.
 Übernommen und angepasst aus **MathWelt 3A** (`../../Mathe_3a/mathwelt-3a`): Speicherung, Codes, Masterview, Worker. Dort erprobt, nicht neu erfinden.
 

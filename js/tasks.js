@@ -1,5 +1,6 @@
-// BlockQuest 1A – Aufgaben-Generatoren nach mathbuch 1 (Klett), LU 10 «Terme umformen» (J, S. 54–59)
-// und LU 11 «Daten und Diagramme» (K, S. 60–65). Reihenfolge im Unterricht: zuerst LU 10, dann LU 11.
+// BlockQuest 1A – Aufgaben-Generatoren nach mathbuch 1 (Klett), Thema J «Terme umformen» (S. 54–59)
+// und Thema K «Daten und Diagramme» (S. 60–65). Reihenfolge im Unterricht: zuerst J, dann K.
+// Intern steht lu: 10 für J und lu: 11 für K (Zuordnung der Stationen zu den Welten); angezeigt wird THEMA.
 // Jede Aufgabe gibt es auf drei Niveaus: 1 = Grundanspruch, 2 = Standard, 3 = Erweiterung.
 // Eine Aufgabe: { q (HTML), kind: 'num'|'mc'|'term'|'multi', answer|options|parts, hint, sol, tol?, unit?, form?, n?, probe?, probeAt? }
 // kind 'term': answer ist ein Term als Text; geprüft wird durch Einsetzen (gleichwertig). form: 'sum' verlangt
@@ -242,7 +243,7 @@ function figSvg(rects, labels, unit = 26) {
 // ---------- Gebäude und Aufgaben ----------
 const VAL = { a: 3, b: 2 };   // Zeichengrösse der Variablen in Figuren
 export const BUILDINGS = [
-  // ===== LU 10 Terme umformen (J) =====
+  // ===== Thema J: Terme umformen (intern lu: 10) =====
   {
     id: 'glieder', lu: 10, name: 'Meter-Werkstatt', topic: 'Gleichartige Glieder zusammenfassen', lz: 'LZ1', color: 'ORANGE',
     goal: 'Terme vereinfachen, indem gleichartige Glieder addiert und subtrahiert werden',
@@ -494,7 +495,7 @@ export const BUILDINGS = [
         hint: 'Kontrolliere durch Einsetzen: Setze z. B. x = 1 (oder a = 1, b = 1) links und rechts ein. Kommen verschiedene Werte heraus, ist die Umformung falsch.', sol: `${whyList[e.why]} Richtig: ${e.t} = ${T(e.right)}` };
     }
   },
-  // ===== LU 11 Daten und Diagramme (K) =====
+  // ===== Thema K: Daten und Diagramme (intern lu: 11) =====
   {
     id: 'mittel', lu: 11, name: 'Papierkugel-Stadion', topic: 'Mittelwert, Median, Minimum, Maximum', lz: 'LZ5', color: 'LIME',
     goal: 'Daten auswerten: Minimum, Maximum, Mittelwert und Median bestimmen',
@@ -742,7 +743,9 @@ export function checkPart(part, value) {
 }
 
 // Die zwei Welten: je eine Lernumgebung. Freigabe: siehe CONFIG.worlds und Masterview.
-export const WORLDS = {   // Reihenfolge im Unterricht: zuerst LU 10, dann LU 11
-  te: { id: 'te', name: 'Terme-Insel', lu: 10, sub: 'LU 10 · Terme umformen (J)', sky: [0.55, 0.82, 1.0] },
-  dd: { id: 'dd', name: 'Daten-Stadt', lu: 11, sub: 'LU 11 · Daten und Diagramme (K)', sky: [0.98, 0.8, 0.93] },
+// Anzeige: Thema J und K im mathbuch 1
+export const THEMA = { 10: 'J', 11: 'K' };
+export const WORLDS = {   // Reihenfolge im Unterricht: zuerst J, dann K
+  te: { id: 'te', name: 'Terme-Insel', lu: 10, sub: 'Thema J · Terme umformen (S. 54–59)', sky: [0.55, 0.82, 1.0] },
+  dd: { id: 'dd', name: 'Daten-Stadt', lu: 11, sub: 'Thema K · Daten und Diagramme (S. 60–65)', sky: [0.98, 0.8, 0.93] },
 };

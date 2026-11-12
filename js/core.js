@@ -244,7 +244,7 @@ export function gradeProbe(S, cur, value) {
 
 // ---------- Abzeichen pro Lernziel ----------
 // Abzeichen: 5 Aufgaben ab ★★ im ersten Versuch ohne Lösungshilfe. Gold: 3 solche Aufgaben auf ★★★.
-export const BADGES = [   // Reihenfolge des Unterrichts: zuerst LU 10 Terme (LZ1–LZ4), dann LU 11 Daten (LZ5–LZ8)
+export const BADGES = [   // Reihenfolge des Unterrichts: zuerst Thema J Terme (LZ1–LZ4), dann Thema K Daten (LZ5–LZ8)
   { lz: 'LZ1', name: 'Zusammenfasser/in', icon: '🧮', w: 'te', goal: 'Gleichartige Glieder zusammenfassen' },
   { lz: 'LZ2', name: 'Einsetz-Profi', icon: '🎲', w: 'te', goal: 'Zahlen für Variablen einsetzen' },
   { lz: 'LZ3', name: 'Klammer-Knacker/in', icon: '✖️', w: 'te', goal: 'Ausmultiplizieren mit dem Distributivgesetz' },

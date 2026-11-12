@@ -1,4 +1,4 @@
-// BlockQuest 1A – Aufbau der Blockwelten: Terme-Insel (te, LU 10) und Daten-Stadt (dd, LU 11)
+// BlockQuest 1A – Aufbau der Blockwelten: Terme-Insel (te, Thema J) und Daten-Stadt (dd, Thema K)
 // Bunte Kunststoff-Gebäude (Stationen), Level-Turm, Boss-Arena, Klassen-Turm und ein Hindernis-Parcours pro Welt.
 import { World, B } from './engine.js';
 import { BUILDINGS, WORLDS } from './tasks.js';

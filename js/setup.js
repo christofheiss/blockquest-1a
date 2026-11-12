@@ -23,7 +23,7 @@ export const CONFIG = {
   saveUrl: '${saveUrl}',
   dataRepo: '${dataRepo}',
   teacherPublicKey: ${JSON.stringify(pub)},
-  // Freigabe, solange der Worker nichts anderes meldet (te = Terme-Insel LU 10, dd = Daten-Stadt LU 11)
+  // Freigabe, solange der Worker nichts anderes meldet (te = Terme-Insel Thema J, dd = Daten-Stadt Thema K)
   worlds: { te: true, dd: false },
   tokenHashes: [
 ${hashes.join('\n')}
