@@ -635,7 +635,7 @@ if (DEMO_ID !== null) (async () => {
   S = D.demoStudent(D.DEMO_WHO[DEMO_ID] ? DEMO_ID : '1A05');
   openWorlds = { ...CONFIG.worlds, ...D.DEMO_WORLDS }; worldsChecked = true;
   $('#login').hidden = true;
-  document.body.insertAdjacentHTML('beforeend', `<div style="position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:50;background:#a6f22a;color:#1c1a33;border:2px solid #1c1a33;border-radius:10px;padding:6px 14px;font-weight:700;font-family:system-ui">DEMO: ${S.id} (erfundene Daten) · nichts wird gespeichert</div>`);
+  document.body.insertAdjacentHTML('beforeend', `<div style="position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:50;background:#a6f22a;color:#1c1a33;border:2px solid #1c1a33;border-radius:10px;padding:6px 14px;font-weight:700;font-family:system-ui">DEMO: ${S.id} · ${D.DEMO_NAMES[S.id] || ''} (erfundene Daten) · nichts wird gespeichert</div>`);
   startGame();
 })();
 // Nur für Tests auf dem eigenen Rechner

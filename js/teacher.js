@@ -339,7 +339,7 @@ $('#rsGo').onclick = async () => {
 // ---------- Demo-Modus ----------
 if (DEMO) (async () => {
   const D = await import('./demo.js');
-  dongle = { names: {}, tokens: [] }; priv = null;
+  dongle = { names: { ...D.DEMO_NAMES }, tokens: [] }; priv = null;
   for (const st of D.demoClass()) students.set(st.id, st);
   worldState = { ...CONFIG.worlds, ...D.DEMO_WORLDS };
   $('#lock').hidden = true; $('#app').hidden = false;

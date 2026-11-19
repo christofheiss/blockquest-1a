@@ -4,7 +4,7 @@
 import { BUILDINGS, STAGES } from './tasks.js';
 import * as C from './core.js';
 
-export const DEMO_NOTE = 'Erfundene Daten (16 pseudonyme IDs, Stand nach Lektion 7). Nichts wird gespeichert oder übertragen.';
+export const DEMO_NOTE = 'Erfundene Daten und Namen (16 Kinder, Stand nach Lektion 7). Nichts wird gespeichert oder übertragen.';
 const BY = Object.fromEntries(BUILDINGS.map(b => [b.id, b]));
 const hit = (i, r) => Math.floor((i + 1) * r + 1e-9) > Math.floor(i * r + 1e-9);   // genau Anteil r der Aufgaben
 const T = (s) => new Date(s).getTime();
@@ -19,6 +19,9 @@ const P = {
   pruef:   { glieder: [9, .89, .7, .2, 0], klammer: [7, .86, .6, 0, .14], distri: [8, .88, .6, .2, .13], flaeche: [5, .8, .6, 0, .2], wuerfel: [5, 1, .6, 0, 0], pruef: [6, .33, .2, 0, .5], boss: [[6, 5, 1], [0, 1, 4]] },
 };
 export const DEMO_WHO = { '1A01': 'solide', '1A02': 'wenig', '1A03': 'stark', '1A04': 'pruef', '1A05': 'klammer', '1A06': 'solide', '1A07': 'pruef', '1A08': 'stark', '1A09': 'klammer', '1A10': 'solide', '1A11': 'wenig', '1A12': 'stark', '1A13': 'klammer', '1A14': 'solide', '1A15': 'stark', '1A16': 'solide' };
+// Erfundene Namen (9 Mädchen, 7 Knaben wie in der Klasse). Im echten Betrieb stehen Namen nur im Dongle.
+export const DEMO_NAMES = { '1A01': 'Lea S.', '1A02': 'Luca B.', '1A03': 'Mia K.', '1A04': 'Noah F.', '1A05': 'Elena W.', '1A06': 'Jonas H.', '1A07': 'Lara M.', '1A08': 'Elias R.',
+  '1A09': 'Nina G.', '1A10': 'Alina T.', '1A11': 'Levin Z.', '1A12': 'Sara P.', '1A13': 'Nico A.', '1A14': 'Jana L.', '1A15': 'Tim D.', '1A16': 'Leonie B.' };
 export const DEMO_WORLDS = { te: true, dd: false, boss_te: true, klasse: 4800 };
 
 function plainQ(q) { return q.replace(/<img[^>]*>|<svg[\s\S]*?<\/svg>|<table[\s\S]*?<\/table>/g, '[Grafik] ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 140); }

@@ -361,6 +361,6 @@ if (DEMO_ID !== null) (async () => {
   S = D.demoStudent(D.DEMO_WHO[DEMO_ID] ? DEMO_ID : '1A05');
   openWorlds = { ...CONFIG.worlds, ...D.DEMO_WORLDS }; worldsChecked = true;
   $('#login').hidden = true; $('#welcome').hidden = true; $('#shell').hidden = false;
-  $('#shell').insertAdjacentHTML('afterbegin', `<div style="background:#a6f22a;color:#1c1a33;border-bottom:2px solid #1c1a33;padding:8px 16px;font-weight:600">DEMO: Lernstand von ${S.id} (erfundene Daten). Nichts wird gespeichert. <a href="lehrer.html?demo">Zur Demo-Masterview</a></div>`);
+  $('#shell').insertAdjacentHTML('afterbegin', `<div style="background:#a6f22a;color:#1c1a33;border-bottom:2px solid #1c1a33;padding:8px 16px;font-weight:600">DEMO: Lernstand von ${S.id} (${D.DEMO_NAMES[S.id] || ''}, erfundene Daten). Nichts wird gespeichert. <a href="lehrer.html?demo">Zur Demo-Masterview</a></div>`);
   updateTop(); route();
 })();
