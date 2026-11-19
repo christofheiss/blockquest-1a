@@ -631,7 +631,7 @@ function init() {
 }
 init();
 if (DEMO_ID !== null) (async () => {
-  const D = await import('./demo.js');
+  const D = await import('./demo.js?v=20261119b');
   S = D.demoStudent(D.DEMO_WHO[DEMO_ID] ? DEMO_ID : '1A05');
   openWorlds = { ...CONFIG.worlds, ...D.DEMO_WORLDS }; worldsChecked = true;
   $('#login').hidden = true;

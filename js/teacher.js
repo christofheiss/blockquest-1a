@@ -338,7 +338,7 @@ $('#rsGo').onclick = async () => {
 
 // ---------- Demo-Modus ----------
 if (DEMO) (async () => {
-  const D = await import('./demo.js');
+  const D = await import('./demo.js?v=20261119b');
   dongle = { names: { ...D.DEMO_NAMES }, tokens: [] }; priv = null;
   for (const st of D.demoClass()) students.set(st.id, st);
   worldState = { ...CONFIG.worlds, ...D.DEMO_WORLDS };
