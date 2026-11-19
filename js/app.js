@@ -11,6 +11,8 @@ const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;
 const BYID = Object.fromEntries(BUILDINGS.map(b => [b.id, b]));
 const areaOf = (b) => Object.values(WORLDS).find(w => w.lu === b.lu);
 
+// Demo-Modus (app.html?demo=1A05): Lernstand eines Beispiel-Kindes, nichts wird gespeichert
+const DEMO_ID = new URLSearchParams(location.search).get('demo');
 let token = null, sKey = null, S = null, current = null;
 let openWorlds = C.knownWorlds(), worldsChecked = false, worldsTimer = null, shownHash = null;
 
@@ -51,14 +53,16 @@ async function pollWorlds() {
 const worldsNote = () => worldsChecked ? '' : 'Die aktuelle Freigabe konnte nicht geprüft werden. Es wird der letzte bekannte Stand angezeigt.';
 
 // ---------- Speichern ----------
-const saveLocal = async () => { if (S) await C.storeLocal(S, sKey); };
+const saveLocal = async () => { if (S && DEMO_ID === null) await C.storeLocal(S, sKey); };
 async function downloadSave() {
+  if (DEMO_ID !== null) return toast('Demo: Es wird nichts gespeichert.');
   await saveLocal();
   await C.downloadSaveFile(S, sKey);
   S.unsavedSince = 0; await saveLocal(); updateTop();
   toast(CONFIG.saveUrl ? 'Lernstand als Datei gespeichert.' : 'Lernstand als Datei gespeichert. Gib sie wie besprochen ab (z. B. in LearningView).');
 }
 async function saveOnline() {
+  if (DEMO_ID !== null) return toast('Demo: Es wird nichts gespeichert.');
   if (!CONFIG.saveUrl) return downloadSave();
   const btn = $('#saveBtn'); if (btn.disabled) return;
   btn.disabled = true; btn.textContent = 'Speichert …';
@@ -352,3 +356,11 @@ function init() {
   window.addEventListener('beforeunload', () => { if (S) saveLocal(); });
 }
 init();
+if (DEMO_ID !== null) (async () => {
+  const D = await import('./demo.js');
+  S = D.demoStudent(D.DEMO_WHO[DEMO_ID] ? DEMO_ID : '1A05');
+  openWorlds = { ...CONFIG.worlds, ...D.DEMO_WORLDS }; worldsChecked = true;
+  $('#login').hidden = true; $('#welcome').hidden = true; $('#shell').hidden = false;
+  $('#shell').insertAdjacentHTML('afterbegin', `<div style="background:#a6f22a;color:#1c1a33;border-bottom:2px solid #1c1a33;padding:8px 16px;font-weight:600">DEMO: Lernstand von ${S.id} (erfundene Daten). Nichts wird gespeichert. <a href="lehrer.html?demo">Zur Demo-Masterview</a></div>`);
+  updateTop(); route();
+})();

@@ -9,6 +9,8 @@ const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const BYID = Object.fromEntries(BUILDINGS.map(b => [b.id, b]));
 
+// Demo-Modus (lehrer.html?demo): erfundene Beispiel-Klasse ohne Dongle, ohne Worker, nichts wird gespeichert
+const DEMO = new URLSearchParams(location.search).has('demo');
 let dongle = null, priv = null;
 const students = new Map();   // id -> Spielstand
 let selected = null;
@@ -106,7 +108,7 @@ $('#clSave').onclick = async () => {
 // ---------- Freigabe: Welten, Gebäude, Boss, Klassen-Coins ----------
 let worldState = { ...CONFIG.worlds };
 function renderWorldToggles(busy = false) {
-  const dis = busy || !CONFIG.saveUrl ? 'disabled' : '';
+  const dis = busy || DEMO || !CONFIG.saveUrl ? 'disabled' : '';
   $('#worldToggles').innerHTML = Object.values(WORLDS).map(w => {
     const on = !!worldState[w.id], bossOn = !!worldState['boss_' + w.id];
     const chips = BUILDINGS.filter(b => b.lu === w.lu).map(b => {
@@ -125,7 +127,7 @@ function renderWorldToggles(busy = false) {
   });
   const k = classInfo(worldState), sum = classSum();
   $('#classInfo').innerHTML = `Klassen-Turm: <b>${k.total} Coins</b> übertragen (Stufe ${k.stage} von ${CLASS_STAGES}). In den geladenen Spielständen: <b>${sum} Coins</b>${students.size ? '' : ' (zuerst Spielstände laden)'}.`;
-  $('#classBtn').disabled = busy || !CONFIG.saveUrl || !students.size || sum <= k.total;
+  $('#classBtn').disabled = busy || DEMO || !CONFIG.saveUrl || !students.size || sum <= k.total;
 }
 function describe(k, on) {
   if (WORLDS[k]) return `«${WORLDS[k].name}» ist jetzt ${on ? 'offen' : 'gesperrt'}.`;
@@ -261,6 +263,7 @@ function showDetail(id) {
     </div>
     <h2>Lernaktivitäten (neueste zuerst, max. 200)</h2>
     <div class="tw log"><table class="grid"><thead><tr><th>Zeit</th><th>Zugang</th><th>Gebäude</th><th>Niveau</th><th>Ergebnis</th><th>Versuche</th><th>Coins</th><th>Dauer</th><th>Aufgabe</th><th>Antwort</th></tr></thead><tbody>${log}</tbody></table></div>`;
+  if (DEMO) $('#detail').insertAdjacentHTML('afterbegin', `<p class="demolink"><a class="filebtn" href="app.html?demo=${esc(id)}" target="_blank" rel="noopener">Sicht von ${esc(id)} in der Lern-App öffnen (Demo)</a> <a class="filebtn" href="index.html?demo=${esc(id)}" target="_blank" rel="noopener">im 3D-Spiel öffnen</a></p>`);
   $('#detail').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -332,3 +335,19 @@ $('#rsGo').onclick = async () => {
     $('#rsError').textContent = /Fehler 40[14]/.test(er.message) ? 'Der Worker kennt «Zurücksetzen» noch nicht. Setze den neuen Worker-Code bei Cloudflare ein.' : (er.message || 'Zurücksetzen nicht möglich.');
   } finally { btn.textContent = 'Endgültig zurücksetzen'; btn.disabled = $('#rsConfirm').value.trim().toUpperCase() !== 'LEER'; }
 };
+
+// ---------- Demo-Modus ----------
+if (DEMO) (async () => {
+  const D = await import('./demo.js');
+  dongle = { names: {}, tokens: [] }; priv = null;
+  for (const st of D.demoClass()) students.set(st.id, st);
+  worldState = { ...CONFIG.worlds, ...D.DEMO_WORLDS };
+  $('#lock').hidden = true; $('#app').hidden = false;
+  document.title = 'BlockQuest 1A · Masterview (Demo)';
+  $('#app').insertAdjacentHTML('afterbegin', `<div class="demobar"><b>DEMO</b> · ${esc(D.DEMO_NOTE)} Klicke auf eine Zeile für die Details und die Sicht des Kindes.</div>`);
+  for (const id of ['cloudBtn', 'tokensBtn', 'dongleBtn', 'resetBtn', 'csvBtn']) { const b = $('#' + id); if (b) { b.disabled = true; b.title = 'Im Demo-Modus ausgeschaltet'; } }
+  const up = $('#saves'); if (up) { up.disabled = true; up.closest('label')?.classList.add('off'); }
+  $('#lockBtn').textContent = 'Demo beenden'; $('#lockBtn').onclick = () => { location.href = 'lehrer.html'; };
+  $('#status').textContent = '16 Beispiel-Spielstände geladen (erfunden). Freigabe-Knöpfe sind im Demo-Modus ausgeschaltet.';
+  render(); renderWorldToggles();
+})();

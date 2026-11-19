@@ -16,6 +16,8 @@ const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const BYID = Object.fromEntries(BUILDINGS.map(b => [b.id, b]));
 
+// Demo-Modus (index.html?demo=1A05): Lernstand eines Beispiel-Kindes, nichts wird gespeichert
+const DEMO_ID = new URLSearchParams(location.search).get('demo');
 let token = null, sKey = null, S = null;            // Token, Schlüssel, Spielstand
 let renderer, player, worldData, paused = true, current = null;
 let fightUi = null, shake = 0, petPos = null;
@@ -28,11 +30,12 @@ const touch = { x: 0, z: 0, jump: false, run: false };
 
 // ---------- Spielstand ----------
 async function saveLocal() {
-  if (!S) return;
+  if (!S || DEMO_ID !== null) return;
   if (player && S.world) S.posBy[S.world] = { x: player.x, y: player.y, z: player.z, yaw: player.yaw };
   await C.storeLocal(S, sKey);
 }
 async function downloadSave() {
+  if (DEMO_ID !== null) return toast('Demo: Es wird nichts gespeichert.');
   await saveLocal();
   await C.downloadSaveFile(S, sKey);
   S.unsavedSince = 0; await saveLocal(); updateHud();
@@ -40,6 +43,7 @@ async function downloadSave() {
 }
 // Speichern-Knopf: lädt den verschlüsselten Stand hoch. Ohne Worker oder bei einem Fehler wird die Datei heruntergeladen.
 async function saveOnline() {
+  if (DEMO_ID !== null) return toast('Demo: Es wird nichts gespeichert.');
   if (!CONFIG.saveUrl) return downloadSave();
   const btn = $('#saveBtn'); if (btn.disabled) return;
   btn.disabled = true; btn.textContent = 'Speichert …';
@@ -91,6 +95,7 @@ function startGame() {
 let openWorlds = C.knownWorlds(), worldsChecked = false, worldsTimer = null;
 
 async function refreshWorlds() {
+  if (DEMO_ID !== null) return;
   const before = JSON.stringify(openWorlds);
   ({ worlds: openWorlds, checked: worldsChecked } = await C.fetchWorlds());
   if (C.isStale(S, openWorlds)) return resetByTeacher();
@@ -625,6 +630,14 @@ function init() {
   };
 }
 init();
+if (DEMO_ID !== null) (async () => {
+  const D = await import('./demo.js');
+  S = D.demoStudent(D.DEMO_WHO[DEMO_ID] ? DEMO_ID : '1A05');
+  openWorlds = { ...CONFIG.worlds, ...D.DEMO_WORLDS }; worldsChecked = true;
+  $('#login').hidden = true;
+  document.body.insertAdjacentHTML('beforeend', `<div style="position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:50;background:#a6f22a;color:#1c1a33;border:2px solid #1c1a33;border-radius:10px;padding:6px 14px;font-weight:700;font-family:system-ui">DEMO: ${S.id} (erfundene Daten) · nichts wird gespeichert</div>`);
+  startGame();
+})();
 // Nur für Tests auf dem eigenen Rechner
 if (['localhost', '127.0.0.1'].includes(location.hostname)) window.__bq = { get player() { return player; }, get S() { return S; }, teleport: (id) => teleport(id) };
 
